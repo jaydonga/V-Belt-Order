@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">V-Belt Order</string>
+    <string name="rupee_symbol" translatable="false">₹</string>
+
+    <string name="create_new_order">Create New Order</string>
+    <string name="view_orders">View Orders</string>
+
+    <string name="inch">inch.</string>
+    <string name="multiplication_symbol" translatable="false">X</string>
+    <string name="quantity">Quantity</string>
+    <string name="total_inches">= total %s inches</string>
+    <string name="delete">Delete</string>
+    <string name="add_new_item">+ Add new item</string>
+    <string name="label_v_belt_type_a">V-Belt Type : A</string>
+    <string name="total_inches_and_price">Total inches: $s, price: $s</string>
+
 </resources>

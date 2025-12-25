@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nitintraders.v_beltorder.databinding.FragmentHomeScreenBinding
+import com.nitintraders.v_beltorder.ui.activities.MainActivity
 
 class HomeScreenFragment : Fragment() {
 
@@ -24,11 +25,11 @@ class HomeScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnCreateNewOrder.setOnClickListener {
-
+            (activity as MainActivity).navigateToCreateNewOrder()
         }
 
         binding.btnViewOrders.setOnClickListener {
-
+            (activity as MainActivity).navigateToViewOrders()
         }
     }
 }

@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Create new order"
+        android:text="@string/create_new_order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,7 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="View orders"
+        android:text="@string/view_orders"
         app:layout_constraintEnd_toEndOf="@+id/btnCreateNewOrder"
         app:layout_constraintStart_toStartOf="@+id/btnCreateNewOrder"
         app:layout_constraintTop_toBottomOf="@+id/btnCreateNewOrder" />
