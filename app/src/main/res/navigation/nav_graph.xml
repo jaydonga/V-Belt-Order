@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreen">
+
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.nitintraders.v_beltorder.ui.fragments.HomeScreenFragment"
+        android:label="Profile">
+
+        <action
+            android:id="@+id/action_homeScreen_to_createNewOrder"
+            app:destination="@id/createNewOrder" />
+        <action
+            android:id="@+id/action_homeScreen_to_viewOrdersFragment"
+            app:destination="@id/viewOrdersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createNewOrder"
+        android:name="com.nitintraders.v_beltorder.ui.fragments.CreateNewOrderFragment"
+        android:label="CreateNewOrderFragment" />
+
+    <fragment
+        android:id="@+id/viewOrdersFragment"
+        android:name="com.nitintraders.v_beltorder.ui.fragments.ViewOrdersFragment"
+        android:label="ViewOrdersFragment" />
+
+</navigation>
