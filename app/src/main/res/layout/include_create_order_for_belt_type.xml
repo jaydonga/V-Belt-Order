@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="16dp">
 
     <TextView
-        android:id="@+id/textViewVBeltTypeA"
+        android:id="@+id/textViewVBeltType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -18,39 +19,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextPriceOfSizeA"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutPriceOf1Inch"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="5"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal"
-        android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="@id/textViewVBeltTypeA"
+        android:layout_marginTop="16dp"
+        android:hint="@string/price_of_1_inch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewVBeltTypeA" />
+        app:layout_constraintTop_toBottomOf="@id/textViewVBeltType">
 
-    <TextView
-        android:id="@+id/textViewSizeARupeeSymbol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/rupee_symbol"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextPriceOfSizeA"
-        app:layout_constraintStart_toEndOf="@+id/editTextPriceOfSizeA"
-        app:layout_constraintTop_toTopOf="@+id/editTextPriceOfSizeA" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPriceOfSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewSizesA"
+        android:id="@+id/recyclerViewSizes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewVBeltTypeA"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutPriceOf1Inch"
         tools:listitem="@layout/item_belt_order" />
 
     <TextView
@@ -63,10 +59,10 @@
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewSizesA" />
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewSizes" />
 
     <Button
-        android:id="@+id/btnAddNewItemSizeA"
+        android:id="@+id/btnAddNewItemSize"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -79,9 +75,10 @@
         android:id="@+id/dividerAfterSizeA"
         android:layout_width="0dp"
         android:layout_height="2dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAddNewItemSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

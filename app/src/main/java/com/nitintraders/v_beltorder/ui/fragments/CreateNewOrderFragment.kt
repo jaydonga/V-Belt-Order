@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nitintraders.v_beltorder.R
 import com.nitintraders.v_beltorder.databinding.FragmentCreateNewOrderBinding
 
 class CreateNewOrderFragment : Fragment() {
@@ -15,7 +16,7 @@ class CreateNewOrderFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCreateNewOrderBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -24,6 +25,9 @@ class CreateNewOrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        
+        binding.layoutBeltTypeA.textViewVBeltType.text = getString(R.string.label_v_belt_type_a)
+        binding.layoutBeltTypeB.textViewVBeltType.text = getString(R.string.label_v_belt_type_b)
+        binding.layoutBeltTypeC.textViewVBeltType.text = getString(R.string.label_v_belt_type_c)
+
     }
 }

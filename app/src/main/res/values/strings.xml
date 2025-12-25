@@ -12,6 +12,9 @@
     <string name="delete">Delete</string>
     <string name="add_new_item">+ Add new item</string>
     <string name="label_v_belt_type_a">V-Belt Type : A</string>
+    <string name="label_v_belt_type_b">V-Belt Type : B</string>
+    <string name="label_v_belt_type_c">V-Belt Type : C</string>
     <string name="total_inches_and_price">Total inches: $s, price: $s</string>
+    <string name="price_of_1_inch">Price of 1 inch</string>
 
 </resources>
