@@ -62,11 +62,11 @@ class CreateNewOrderFragment : Fragment() {
         binding.layoutBeltTypeB.recyclerViewSizes.adapter = adapterBeltTypeB
         binding.layoutBeltTypeC.recyclerViewSizes.adapter = adapterBeltTypeC
 
+        handleClickListeners()
+
         binding.layoutBeltTypeA.btnAddNewItemSize.performClick()
         binding.layoutBeltTypeB.btnAddNewItemSize.performClick()
         binding.layoutBeltTypeC.btnAddNewItemSize.performClick()
-
-        handleClickListeners()
     }
 
     private fun handleClickListeners() {

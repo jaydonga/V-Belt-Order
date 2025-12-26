@@ -16,5 +16,7 @@
     <string name="label_v_belt_type_c">V-Belt Type : <b>C</b></string>
     <string name="total_inches_and_price">Total inches: $s, price: $s</string>
     <string name="price_of_1_inch">Price of 1 inch (₹)</string>
+    <string name="customer_name">Customer name</string>
+    <string name="total_order_amount">Total order amount: $s ₹</string>
 
 </resources>
