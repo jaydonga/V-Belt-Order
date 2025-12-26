@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nitintraders.v_beltorder.data.BeltItem
 import com.nitintraders.v_beltorder.databinding.ItemBeltOrderBinding
 
-class BeltItemAdapter(private val beltItems: List<BeltItem>) : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolder>() {
+class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolder>() {
 
-    private val mutableBeltItems: MutableList<BeltItem> = beltItems.toMutableList()
+    private var itemClickListener: ((item: BeltItem, index: Int) -> Unit)? = null
+
+    private val beltItems = mutableListOf<BeltItem>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -19,20 +21,21 @@ class BeltItemAdapter(private val beltItems: List<BeltItem>) : RecyclerView.Adap
             parent,
             false
         )
-        return BeltItemViewHolder(binding)
+        return BeltItemViewHolder(binding, itemClickListener)
     }
 
     override fun onBindViewHolder(
         holder: BeltItemViewHolder,
         position: Int,
     ) {
-        holder.bind(mutableBeltItems[position])
+        holder.bind(beltItems[position])
     }
 
-    override fun getItemCount() = mutableBeltItems.size
+    override fun getItemCount() = beltItems.size
 
-    class BeltItemViewHolder(
+    inner class BeltItemViewHolder(
         private val binding: ItemBeltOrderBinding,
+        private val itemClickListener: ((item: BeltItem, index: Int) -> Unit)?,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(beltItem: BeltItem) {
@@ -42,21 +45,27 @@ class BeltItemAdapter(private val beltItems: List<BeltItem>) : RecyclerView.Adap
             beltItem.quantity?.let {
                 binding.editTextQuantity.setText(it)
             }
+
+            binding.imageButtonDelete.setOnClickListener {
+                itemClickListener?.invoke(beltItems[bindingAdapterPosition], bindingAdapterPosition)
+            }
         }
     }
 
-    fun updateList(newBeltItems: List<BeltItem>) {
-        mutableBeltItems.clear()
-        mutableBeltItems.addAll(newBeltItems)
-        notifyDataSetChanged()
+    fun setItemClickListener(itemClickListener: (item: BeltItem, index: Int) -> Unit) {
+        this.itemClickListener = itemClickListener
     }
 
-    fun addBlankItems(blankItems: Int) {
-        val newItems = mutableListOf<BeltItem>()
-        newItems.addAll(beltItems)
-        repeat(blankItems) {
-            newItems.add(BeltItem())
+    fun addBlankItems(numberOfBlankItems: Int) {
+        val currentLastIndex = beltItems.lastIndex
+        repeat(numberOfBlankItems) {
+            beltItems.add(BeltItem())
         }
-        updateList(newItems)
+        notifyItemRangeInserted(currentLastIndex, currentLastIndex + numberOfBlankItems)
+    }
+
+    fun itemRemoved(index: Int) {
+        beltItems.removeAt(index)
+        notifyItemRemoved(index)
     }
 }
