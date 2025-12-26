@@ -111,6 +111,7 @@ class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolde
     fun itemRemoved(index: Int) {
         beltItems.removeAt(index)
         notifyItemRemoved(index)
+        itemUpdateListener?.invoke()
     }
 
     val allBeltItems: List<BeltItem>
