@@ -100,12 +100,12 @@ class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolde
     }
 
 
-    fun addBlankItems(numberOfBlankItems: Int) {
+    fun addNewItems(numberOfNewItems: Int) {
         val currentLastIndex = beltItems.lastIndex
-        repeat(numberOfBlankItems) {
+        repeat(numberOfNewItems) {
             beltItems.add(BeltItem())
         }
-        notifyItemRangeInserted(currentLastIndex, currentLastIndex + numberOfBlankItems)
+        notifyItemRangeInserted(currentLastIndex + 1, numberOfNewItems)
     }
 
     fun itemRemoved(index: Int) {

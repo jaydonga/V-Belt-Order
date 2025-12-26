@@ -83,7 +83,7 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.layoutBeltTypeA.editTextPriceOfSize.addTextChangedListener { text ->
-            if (text.isNullOrEmpty() || text.toString().toFloatOrNull().orZero() <= 0F) {
+            if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeA.textInputLayoutPriceOf1Inch.error =
                     getString(R.string.error_enter_price_per_inch_a)
             } else {
@@ -93,7 +93,7 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.layoutBeltTypeB.editTextPriceOfSize.addTextChangedListener { text ->
-            if (text.isNullOrEmpty() || text.toString().toFloatOrNull().orZero() <= 0F) {
+            if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeB.textInputLayoutPriceOf1Inch.error =
                     getString(R.string.error_enter_price_per_inch_b)
             } else {
@@ -103,7 +103,7 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.layoutBeltTypeC.editTextPriceOfSize.addTextChangedListener { text ->
-            if (text.isNullOrEmpty() || text.toString().toFloatOrNull().orZero() <= 0F) {
+            if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeC.textInputLayoutPriceOf1Inch.error =
                     getString(R.string.error_enter_price_per_inch_c)
             } else {
@@ -201,13 +201,13 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.layoutBeltTypeA.btnAddNewItemSize.setOnClickListener {
-            adapterBeltTypeA.addBlankItems(numberOfBlankItems)
+            adapterBeltTypeA.addNewItems(numberOfBlankItems)
         }
         binding.layoutBeltTypeB.btnAddNewItemSize.setOnClickListener {
-            adapterBeltTypeB.addBlankItems(numberOfBlankItems)
+            adapterBeltTypeB.addNewItems(numberOfBlankItems)
         }
         binding.layoutBeltTypeC.btnAddNewItemSize.setOnClickListener {
-            adapterBeltTypeC.addBlankItems(numberOfBlankItems)
+            adapterBeltTypeC.addNewItems(numberOfBlankItems)
         }
     }
 }
