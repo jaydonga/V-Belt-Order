@@ -3,17 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp">
 
     <EditText
         android:id="@+id/editTextSizeInInch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:ems="3"
+        android:background="@drawable/edit_text_border"
+        android:ems="4"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="8dp" />
 
     <TextView
         android:id="@+id/textViewInch"
@@ -21,30 +24,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/inch"
-        app:layout_constraintBottom_toBottomOf="@id/editTextSizeInInch"
-        app:layout_constraintStart_toEndOf="@id/editTextSizeInInch"
-        app:layout_constraintTop_toTopOf="@id/editTextSizeInInch" />
+        app:layout_constraintEnd_toEndOf="@id/editTextSizeInInch"
+        app:layout_constraintStart_toStartOf="@id/editTextSizeInInch"
+        app:layout_constraintTop_toBottomOf="@id/editTextSizeInInch" />
 
     <TextView
         android:id="@+id/textViewMultiply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:text="@string/multiplication_symbol"
         app:layout_constraintBottom_toBottomOf="@id/textViewInch"
-        app:layout_constraintStart_toEndOf="@id/textViewInch"
-        app:layout_constraintTop_toTopOf="@id/textViewInch" />
+        app:layout_constraintStart_toEndOf="@id/editTextSizeInInch"
+        app:layout_constraintTop_toTopOf="@id/editTextSizeInInch" />
 
     <EditText
         android:id="@+id/editTextQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ems="3"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="4"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@id/textViewMultiply"
+        app:layout_constraintBottom_toBottomOf="@id/editTextSizeInInch"
         app:layout_constraintStart_toEndOf="@id/textViewMultiply"
-        app:layout_constraintTop_toTopOf="@id/textViewMultiply" />
+        app:layout_constraintTop_toTopOf="@id/editTextSizeInInch" />
 
     <TextView
         android:id="@+id/textViewQuantity"
@@ -52,38 +56,40 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/quantity"
-        app:layout_constraintBottom_toBottomOf="@id/editTextQuantity"
-        app:layout_constraintStart_toEndOf="@id/editTextQuantity"
-        app:layout_constraintTop_toTopOf="@id/editTextQuantity" />
+        app:layout_constraintEnd_toEndOf="@id/editTextQuantity"
+        app:layout_constraintStart_toStartOf="@id/editTextQuantity"
+        app:layout_constraintTop_toBottomOf="@id/editTextQuantity" />
 
     <TextView
         android:id="@+id/textViewTotalInchesRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/total_inches"
         app:layout_constraintBottom_toBottomOf="@id/textViewQuantity"
-        app:layout_constraintStart_toEndOf="@id/textViewQuantity"
-        app:layout_constraintTop_toTopOf="@id/textViewQuantity"
+        app:layout_constraintStart_toEndOf="@id/editTextQuantity"
+        app:layout_constraintTop_toTopOf="@id/editTextQuantity"
         tools:text="= total 30 inches" />
 
     <ImageView
         android:id="@+id/imageButtonDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:contentDescription="@string/delete"
         android:src="@android:drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="@id/textViewQuantity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textViewQuantity" />
+        app:layout_constraintTop_toTopOf="@id/editTextQuantity" />
 
     <View
         android:id="@+id/horizontalDividerOrderItem"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginTop="4dp"
         android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextSizeInInch" />
+        app:layout_constraintTop_toBottomOf="@id/textViewInch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

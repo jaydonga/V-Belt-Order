@@ -36,8 +36,12 @@ class BeltItemAdapter(private val beltItems: List<BeltItem>) : RecyclerView.Adap
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(beltItem: BeltItem) {
-            binding.editTextSizeInInch.setText(beltItem.size.toString())
-            binding.editTextQuantity.setText(beltItem.quantity.toString())
+            beltItem.size?.let {
+                binding.editTextSizeInInch.setText(it)
+            }
+            beltItem.quantity?.let {
+                binding.editTextQuantity.setText(it)
+            }
         }
     }
 
