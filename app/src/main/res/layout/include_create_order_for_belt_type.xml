@@ -20,7 +20,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutPriceOf1Inch"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/price_of_1_inch"
@@ -55,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="@string/total_inches_and_price"
+        android:text="@string/total_inches_and_price_a"
         android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -74,12 +74,13 @@
             android:background="@android:color/black" />
 
         <TextView
-            android:id="@+id/totalOrderAmount"
+            android:id="@+id/textViewGrandTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginVertical="16dp"
-            android:text="@string/total_order_amount"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_marginVertical="24dp"
+            android:text="@string/grand_total"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

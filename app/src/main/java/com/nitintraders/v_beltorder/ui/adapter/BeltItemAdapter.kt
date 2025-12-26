@@ -1,14 +1,19 @@
 package com.nitintraders.v_beltorder.ui.adapter
 
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
+import com.nitintraders.v_beltorder.R
 import com.nitintraders.v_beltorder.data.BeltItem
 import com.nitintraders.v_beltorder.databinding.ItemBeltOrderBinding
+import com.nitintraders.v_beltorder.utils.orZero
 
 class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolder>() {
 
     private var itemClickListener: ((item: BeltItem, index: Int) -> Unit)? = null
+    private var itemUpdateListener: (() -> Unit)? = null
 
     private val beltItems = mutableListOf<BeltItem>()
 
@@ -38,16 +43,50 @@ class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolde
         private val itemClickListener: ((item: BeltItem, index: Int) -> Unit)?,
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        private var sizeWatcher: TextWatcher? = null
+        private var quantityWatcher: TextWatcher? = null
+
         fun bind(beltItem: BeltItem) {
-            beltItem.size?.let {
-                binding.editTextSizeInInch.setText(it)
+
+            sizeWatcher?.let { watcher ->
+                binding.editTextSizeInInch.removeTextChangedListener(
+                    watcher
+                )
             }
-            beltItem.quantity?.let {
-                binding.editTextQuantity.setText(it)
+            quantityWatcher?.let { watcher ->
+                binding.editTextQuantity.removeTextChangedListener(
+                    watcher
+                )
             }
+
+            binding.editTextSizeInInch.setText((beltItem.size ?: "").toString())
+            binding.editTextQuantity.setText((beltItem.quantity ?: "").toString())
+            val totalInchesText =
+                binding.root.context.getString(R.string.total_inches, beltItem.totalInches)
+            binding.textViewTotalInchesRow.text = totalInchesText
 
             binding.imageButtonDelete.setOnClickListener {
                 itemClickListener?.invoke(beltItems[bindingAdapterPosition], bindingAdapterPosition)
+            }
+
+            sizeWatcher = binding.editTextSizeInInch.addTextChangedListener { text ->
+                beltItem.size = text?.toString()?.toIntOrNull()
+                beltItem.totalInches = beltItem.size.orZero() * beltItem.quantity.orZero()
+                binding.textViewTotalInchesRow.text = binding.root.context.getString(
+                    R.string.total_inches,
+                    beltItem.totalInches
+                )
+                itemUpdateListener?.invoke()
+            }
+
+            quantityWatcher = binding.editTextQuantity.addTextChangedListener { text ->
+                beltItem.quantity = text?.toString()?.toIntOrNull()
+                beltItem.totalInches = beltItem.size.orZero() * beltItem.quantity.orZero()
+                binding.textViewTotalInchesRow.text = binding.root.context.getString(
+                    R.string.total_inches,
+                    beltItem.totalInches
+                )
+                itemUpdateListener?.invoke()
             }
         }
     }
@@ -55,6 +94,11 @@ class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolde
     fun setItemClickListener(itemClickListener: (item: BeltItem, index: Int) -> Unit) {
         this.itemClickListener = itemClickListener
     }
+
+    fun setItemUpdateListener(itemUpdateListener: () -> Unit) {
+        this.itemUpdateListener = itemUpdateListener
+    }
+
 
     fun addBlankItems(numberOfBlankItems: Int) {
         val currentLastIndex = beltItems.lastIndex
@@ -68,4 +112,7 @@ class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolde
         beltItems.removeAt(index)
         notifyItemRemoved(index)
     }
+
+    val allBeltItems: List<BeltItem>
+        get() = beltItems
 }

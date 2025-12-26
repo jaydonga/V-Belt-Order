@@ -13,7 +13,9 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/edit_text_border"
         android:ems="4"
+        android:imeOptions="actionNext"
         android:inputType="number"
+        android:nextFocusForward="@id/editTextQuantity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginStart="8dp" />
@@ -45,6 +47,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/edit_text_border"
         android:ems="4"
+        android:imeOptions="actionDone"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@id/editTextSizeInInch"
         app:layout_constraintStart_toEndOf="@id/textViewMultiply"

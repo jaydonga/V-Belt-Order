@@ -8,15 +8,21 @@
     <string name="inch">inch.</string>
     <string name="multiplication_symbol" translatable="false">X</string>
     <string name="quantity">Quantity</string>
-    <string name="total_inches">= %s inches</string>
+    <string name="total_inches">= %d inches</string>
     <string name="delete">Delete</string>
     <string name="add_new_item">+ Add new item</string>
     <string name="label_v_belt_type_a">V-Belt Type : <b>A</b></string>
     <string name="label_v_belt_type_b">V-Belt Type : <b>B</b></string>
     <string name="label_v_belt_type_c">V-Belt Type : <b>C</b></string>
-    <string name="total_inches_and_price">Total inches: $s, price: $s</string>
+    <string name="total_inches_and_price_a">Total inches for A: %d,\nTotal price for A: <b>%.2f ₹</b></string>
+    <string name="total_inches_and_price_b">Total inches for B: %d,\nTotal price for B: <b>%.2f ₹</b></string>
+    <string name="total_inches_and_price_c">Total inches for C: %d,\nTotal price for C: <b>%.2f ₹</b></string>
     <string name="price_of_1_inch">Price of 1 inch (₹)</string>
     <string name="customer_name">Customer name</string>
-    <string name="total_order_amount">Total order amount: $s ₹</string>
+    <string name="grand_total">Grand total: %.2f ₹</string>
+    <string name="error_enter_customer_name">Enter customer name.</string>
+    <string name="error_enter_price_per_inch_a">Enter price per inch for belt type A.</string>
+    <string name="error_enter_price_per_inch_b">Enter price per inch for belt type B.</string>
+    <string name="error_enter_price_per_inch_c">Enter price per inch for belt type C.</string>
 
 </resources>
