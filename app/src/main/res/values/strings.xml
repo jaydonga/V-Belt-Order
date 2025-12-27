@@ -5,7 +5,7 @@
     <string name="create_new_order">Create New Order</string>
     <string name="view_orders">View Orders</string>
 
-    <string name="inch">inch.</string>
+    <string name="size_in_inch">Size (inch)</string>
     <string name="multiplication_symbol" translatable="false">X</string>
     <string name="quantity">Quantity</string>
     <string name="total_inches">= %d inches</string>
@@ -14,12 +14,12 @@
     <string name="label_v_belt_type_a">V-Belt Type : <b>A</b></string>
     <string name="label_v_belt_type_b">V-Belt Type : <b>B</b></string>
     <string name="label_v_belt_type_c">V-Belt Type : <b>C</b></string>
-    <string name="total_inches_and_price_a">Total inches for A: %d,\nTotal price for A: <b>%.2f ₹</b></string>
-    <string name="total_inches_and_price_b">Total inches for B: %d,\nTotal price for B: <b>%.2f ₹</b></string>
-    <string name="total_inches_and_price_c">Total inches for C: %d,\nTotal price for C: <b>%.2f ₹</b></string>
+    <string name="total_of_type_a">Total belts of type A: %d,\nTotal inches of A belts: %d,\nTotal price for A: <b>%.2f ₹</b></string>
+    <string name="total_of_type_b">Total belts of type B: %d,\nTotal inches of B belts: %d,\nTotal price for B: <b>%.2f ₹</b></string>
+    <string name="total_of_type_c">Total belts of type C: %d,\nTotal inches of C belts: %d,\nTotal price for C: <b>%.2f ₹</b></string>
     <string name="price_of_1_inch">Price of 1 inch (₹)</string>
     <string name="customer_name">Customer name</string>
-    <string name="grand_total">Grand total: %.2f ₹</string>
+    <string name="grand_total">Total belts: %d\nGrand total: %.2f ₹</string>
     <string name="error_enter_customer_name">Enter customer name.</string>
     <string name="error_enter_price_per_inch_a">Enter price per inch for belt type A.</string>
     <string name="error_enter_price_per_inch_b">Enter price per inch for belt type B.</string>

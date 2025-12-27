@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,10 @@ class CreateNewOrderFragment : Fragment() {
     private lateinit var adapterBeltTypeA: BeltItemAdapter
     private lateinit var adapterBeltTypeB: BeltItemAdapter
     private lateinit var adapterBeltTypeC: BeltItemAdapter
+    private var totalBeltsOfTypeA = 0
+    private var totalBeltsOfTypeB = 0
+    private var totalBeltsOfTypeC = 0
+    private var totalBelts = 0
 
     private var totalPriceForBeltsA = 0f
     private var totalPriceForBeltsB = 0f
@@ -77,8 +82,14 @@ class CreateNewOrderFragment : Fragment() {
         binding.editTextCustomerName.addTextChangedListener { text ->
             if (text.isNullOrEmpty()) {
                 binding.textInputLayoutCustomerName.error = getString(R.string.error_enter_customer_name)
+                binding.layoutBeltTypeA.root.isVisible = false
+                binding.layoutBeltTypeB.root.isVisible = false
+                binding.layoutBeltTypeC.root.isVisible = false
             } else {
                 binding.textInputLayoutCustomerName.isErrorEnabled = false
+                binding.layoutBeltTypeA.root.isVisible = true
+                binding.layoutBeltTypeB.root.isVisible = true
+                binding.layoutBeltTypeC.root.isVisible = true
             }
         }
 
@@ -138,41 +149,47 @@ class CreateNewOrderFragment : Fragment() {
 
     private fun handleAdapterAItemUpdate() {
         val totalInchesForBeltTypeA = adapterBeltTypeA.allBeltItems.sumOf { it.totalInches }
+        totalBeltsOfTypeA = adapterBeltTypeA.allBeltItems.sumOf { it.quantity.orZero() }
         val pricePerInchForBeltTypeA =
             binding.layoutBeltTypeA.editTextPriceOfSize.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsA = (totalInchesForBeltTypeA * pricePerInchForBeltTypeA).toMaxTwoDecimalPlaces()
         binding.layoutBeltTypeA.totalInchesCostForSize.text = getString(
-            R.string.total_inches_and_price_a, totalInchesForBeltTypeA, totalPriceForBeltsA
+            R.string.total_of_type_a, totalBeltsOfTypeA, totalInchesForBeltTypeA, totalPriceForBeltsA
         )
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
-        binding.textViewGrandTotal.text = getString(R.string.grand_total, grandTotal)
+        totalBelts = totalBeltsOfTypeA + totalBeltsOfTypeB + totalBeltsOfTypeC
+        binding.textViewGrandTotal.text = getString(R.string.grand_total, totalBelts, grandTotal)
     }
 
     private fun handleAdapterBItemUpdate() {
         val totalInchesForBeltTypeB = adapterBeltTypeB.allBeltItems.sumOf { it.totalInches }
+        totalBeltsOfTypeB = adapterBeltTypeB.allBeltItems.sumOf { it.quantity.orZero() }
         val pricePerInchForBeltTypeB =
             binding.layoutBeltTypeB.editTextPriceOfSize.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsB = (totalInchesForBeltTypeB * pricePerInchForBeltTypeB).toMaxTwoDecimalPlaces()
         binding.layoutBeltTypeB.totalInchesCostForSize.text = getString(
-            R.string.total_inches_and_price_b, totalInchesForBeltTypeB, totalPriceForBeltsB
+            R.string.total_of_type_b, totalBeltsOfTypeB, totalInchesForBeltTypeB, totalPriceForBeltsB
         )
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
-        binding.textViewGrandTotal.text = getString(R.string.grand_total, grandTotal)
+        totalBelts = totalBeltsOfTypeA + totalBeltsOfTypeB + totalBeltsOfTypeC
+        binding.textViewGrandTotal.text = getString(R.string.grand_total, totalBelts, grandTotal)
     }
 
     private fun handleAdapterCItemUpdate() {
         val totalInchesForBeltTypeC = adapterBeltTypeC.allBeltItems.sumOf { it.totalInches }
+        totalBeltsOfTypeC = adapterBeltTypeC.allBeltItems.sumOf { it.quantity.orZero() }
         val pricePerInchForBeltTypeC =
             binding.layoutBeltTypeC.editTextPriceOfSize.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsC = (totalInchesForBeltTypeC * pricePerInchForBeltTypeC).toMaxTwoDecimalPlaces()
         binding.layoutBeltTypeC.totalInchesCostForSize.text = getString(
-            R.string.total_inches_and_price_c, totalInchesForBeltTypeC, totalPriceForBeltsC
+            R.string.total_of_type_c, totalBeltsOfTypeC, totalInchesForBeltTypeC, totalPriceForBeltsC
         )
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
-        binding.textViewGrandTotal.text = getString(R.string.grand_total, grandTotal)
+        totalBelts = totalBeltsOfTypeA + totalBeltsOfTypeB + totalBeltsOfTypeC
+        binding.textViewGrandTotal.text = getString(R.string.grand_total, totalBelts, grandTotal)
     }
 
     private fun handleClickListeners() {
