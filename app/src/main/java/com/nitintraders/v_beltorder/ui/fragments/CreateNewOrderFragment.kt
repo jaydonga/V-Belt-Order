@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitintraders.v_beltorder.R
+import com.nitintraders.v_beltorder.data.BeltOrder
 import com.nitintraders.v_beltorder.databinding.FragmentCreateNewOrderBinding
 import com.nitintraders.v_beltorder.databinding.IncludeCreateOrderForBeltTypeBinding
 import com.nitintraders.v_beltorder.ui.adapter.BeltItemAdapter
@@ -46,7 +47,7 @@ class CreateNewOrderFragment : Fragment() {
         adapterBeltTypeB = BeltItemAdapter()
         adapterBeltTypeC = BeltItemAdapter()
 
-        viewModel = ViewModelProvider(requireActivity()).get(CreateNewOrderViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[CreateNewOrderViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -263,11 +264,13 @@ class CreateNewOrderFragment : Fragment() {
             adapterBeltTypeB.allBeltItems.filter { it.totalInches > 0 },
             adapterBeltTypeC.allBeltItems.filter { it.totalInches > 0 },
         ).flatten()
-        viewModel.saveNewOrder(
-            customerName,
-            totalBelts,
-            grandTotal,
-            allBeltItems,
+
+        val beltOrder = BeltOrder(
+            customerName = customerName,
+            totalBelts = totalBelts,
+            grandTotal = grandTotal,
+            beltItems = allBeltItems,
         )
+        viewModel.addNewOrder(beltOrder)
     }
 }
