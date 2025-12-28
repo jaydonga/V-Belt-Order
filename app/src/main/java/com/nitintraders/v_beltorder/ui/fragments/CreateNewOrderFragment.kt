@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitintraders.v_beltorder.R
@@ -18,8 +19,9 @@ import com.nitintraders.v_beltorder.ui.adapter.BeltItemAdapter
 import com.nitintraders.v_beltorder.utils.orZero
 import com.nitintraders.v_beltorder.utils.toMaxTwoDecimalPlaces
 import com.nitintraders.v_beltorder.viewmodel.CreateNewOrderViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CreateNewOrderFragment : Fragment() {
 
     private val numberOfBlankItems = 5
@@ -38,7 +40,8 @@ class CreateNewOrderFragment : Fragment() {
 
     private var grandTotal = 0f
 
-    private lateinit var viewModel: CreateNewOrderViewModel
+    private val viewModel: CreateNewOrderViewModel by viewModels()
+
     private var customerName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +49,6 @@ class CreateNewOrderFragment : Fragment() {
         adapterBeltTypeA = BeltItemAdapter()
         adapterBeltTypeB = BeltItemAdapter()
         adapterBeltTypeC = BeltItemAdapter()
-
-        viewModel = ViewModelProvider(requireActivity())[CreateNewOrderViewModel::class.java]
     }
 
     override fun onCreateView(

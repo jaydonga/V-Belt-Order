@@ -2,6 +2,7 @@ package com.nitintraders.v_beltorder.repository
 
 import com.nitintraders.v_beltorder.data.BeltOrder
 import com.nitintraders.v_beltorder.datasource.BeltOrdersDataSource
+import javax.inject.Inject
 
 interface BeltOrdersRepository {
 
@@ -10,7 +11,7 @@ interface BeltOrdersRepository {
     fun updateOrder(beltOrder: BeltOrder)
 }
 
-class BeltOrdersRepositoryImpl(
+class BeltOrdersRepositoryImpl @Inject constructor(
     private val beltOrdersDataSource: BeltOrdersDataSource,
 ) : BeltOrdersRepository {
     override fun addNewOrder(beltOrder: BeltOrder) {
