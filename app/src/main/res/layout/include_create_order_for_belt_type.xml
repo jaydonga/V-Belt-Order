@@ -51,7 +51,7 @@
         tools:listitem="@layout/item_belt_order" />
 
     <TextView
-        android:id="@+id/totalInchesCostForSize"
+        android:id="@+id/textViewTotalInchesCostForSize"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/recyclerViewSizes" />
 
     <Button
-        android:id="@+id/btnAddNewItemSize"
+        android:id="@+id/buttonAddNewItemSize"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -71,16 +71,16 @@
         android:text="@string/add_new_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/totalInchesCostForSize" />
+        app:layout_constraintTop_toBottomOf="@id/textViewTotalInchesCostForSize" />
 
     <View
-        android:id="@+id/dividerAfterSizeA"
+        android:id="@+id/dividerCreateOrderForBeltType"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnAddNewItemSize" />
+        app:layout_constraintTop_toBottomOf="@id/buttonAddNewItemSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
