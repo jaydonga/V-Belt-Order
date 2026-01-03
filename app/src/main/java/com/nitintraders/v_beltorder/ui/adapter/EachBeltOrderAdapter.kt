@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nitintraders.v_beltorder.R
 import com.nitintraders.v_beltorder.data.BeltOrder
 import com.nitintraders.v_beltorder.databinding.ItemEachBeltOrderBinding
+import java.util.Date
+import java.util.Locale
 
 class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrderViewHolder>() {
 
+    private val simpleDateFormat = java.text.SimpleDateFormat("dd MMMM yyyy", Locale.UK)
     private var beltOrders = mutableListOf<BeltOrder>()
     private var itemClickListener: ((ClickEventType, Int) -> Unit)? = null
 
@@ -44,16 +47,36 @@ class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrder
 
         fun bind(beltOrder: BeltOrder) {
             binding.textViewCustomerName.text = beltOrder.customerName
-            val totalBeltsString = binding.textViewTotalBelts.context.getString(
+
+            val dateString = simpleDateFormat.format(Date(beltOrder.orderDateTime))
+
+            binding.textViewOrderDate.text = binding.textViewOrderDate.context.getString(
+                R.string.order_date,
+                dateString
+            )
+
+            binding.textViewBeltsOfSizeA.text = binding.textViewBeltsOfSizeA.context.getString(
+                R.string.belts_of_size_a,
+                beltOrder.totalBeltsOfTypeA
+            )
+            binding.textViewBeltsOfSizeB.text = binding.textViewBeltsOfSizeB.context.getString(
+                R.string.belts_of_size_b,
+                beltOrder.totalBeltsOfTypeB
+            )
+            binding.textViewBeltsOfSizeC.text = binding.textViewBeltsOfSizeC.context.getString(
+                R.string.belts_of_size_c,
+                beltOrder.totalBeltsOfTypeC
+            )
+
+            binding.textViewTotalBelts.text = binding.textViewTotalBelts.context.getString(
                 R.string.total_belts,
                 beltOrder.totalBelts
             )
-            binding.textViewTotalBelts.text = totalBeltsString
-            val totalAmountString = binding.textViewTotalAmount.context.getString(
+
+            binding.textViewTotalAmount.text = binding.textViewTotalAmount.context.getString(
                 R.string.total_amount,
                 beltOrder.grandTotal
             )
-            binding.textViewTotalAmount.text = totalAmountString
 
             binding.imageViewDeleteOrder.setOnClickListener {
                 itemClickListener?.invoke(ClickEventType.ItemRemoveEvent, bindingAdapterPosition)

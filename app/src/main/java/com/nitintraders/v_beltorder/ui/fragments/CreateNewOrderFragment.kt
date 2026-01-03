@@ -18,6 +18,9 @@ import com.nitintraders.v_beltorder.data.BeltOrder
 import com.nitintraders.v_beltorder.databinding.FragmentCreateNewOrderBinding
 import com.nitintraders.v_beltorder.databinding.IncludeCreateOrderForBeltTypeBinding
 import com.nitintraders.v_beltorder.ui.adapter.EachBeltItemAdapter
+import com.nitintraders.v_beltorder.ui.adapter.EachBeltItemAdapter.BeltType.A
+import com.nitintraders.v_beltorder.ui.adapter.EachBeltItemAdapter.BeltType.B
+import com.nitintraders.v_beltorder.ui.adapter.EachBeltItemAdapter.BeltType.C
 import com.nitintraders.v_beltorder.utils.orZero
 import com.nitintraders.v_beltorder.utils.toMaxTwoDecimalPlaces
 import com.nitintraders.v_beltorder.viewmodel.CreateNewOrderViewModel
@@ -51,9 +54,9 @@ class CreateNewOrderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapterBeltTypeA = EachBeltItemAdapter()
-        adapterBeltTypeB = EachBeltItemAdapter()
-        adapterBeltTypeC = EachBeltItemAdapter()
+        adapterBeltTypeA = EachBeltItemAdapter(beltType = A)
+        adapterBeltTypeB = EachBeltItemAdapter(beltType = B)
+        adapterBeltTypeC = EachBeltItemAdapter(beltType = C)
     }
 
     override fun onCreateView(
@@ -294,6 +297,9 @@ class CreateNewOrderFragment : Fragment() {
         val beltOrder = BeltOrder(
             orderId = orderId,
             customerName = customerName,
+            totalBeltsOfTypeA = totalBeltsOfTypeA,
+            totalBeltsOfTypeB = totalBeltsOfTypeB,
+            totalBeltsOfTypeC = totalBeltsOfTypeC,
             totalBelts = totalBelts,
             grandTotal = grandTotal,
             beltItems = allBeltItems,

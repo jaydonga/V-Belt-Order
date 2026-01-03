@@ -17,7 +17,6 @@ class CreateNewOrderViewModel @Inject constructor(
     private val _updatedOrderId = MutableStateFlow(-1L)
     val updatedOrderId: Flow<Long> = _updatedOrderId.filter { it > -1 }
 
-
     fun addOrder(beltOrder: BeltOrder) {
         val newOrderId = beltOrdersRepository.addOrder(beltOrder)
         _updatedOrderId.value = newOrderId

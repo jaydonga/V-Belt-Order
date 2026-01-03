@@ -11,8 +11,12 @@ import tools.jackson.module.kotlin.jacksonObjectMapper
 data class BeltOrderEntity(
     @PrimaryKey(autoGenerate = true) val orderId: Long = -1,
     val customerName: String,
+    val totalBeltsOfTypeA: Int,
+    val totalBeltsOfTypeB: Int,
+    val totalBeltsOfTypeC: Int,
     val totalBelts: Int,
     val grandTotal: Float,
+    val orderDateTime: Long,
     val beltItems: String,
 ) {
     private fun getBeltItems(): List<BeltItem> = try {
@@ -26,8 +30,12 @@ data class BeltOrderEntity(
         return BeltOrder(
             orderId = orderId,
             customerName = customerName,
+            totalBeltsOfTypeA = totalBeltsOfTypeA,
+            totalBeltsOfTypeB = totalBeltsOfTypeB,
+            totalBeltsOfTypeC = totalBeltsOfTypeC,
             totalBelts = totalBelts,
             grandTotal = grandTotal,
+            orderDateTime = orderDateTime,
             beltItems = getBeltItems(),
         )
     }

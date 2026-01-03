@@ -26,6 +26,10 @@
     <string name="error_enter_price_per_inch_a">Enter price per inch for belt type A.</string>
     <string name="error_enter_price_per_inch_b">Enter price per inch for belt type B.</string>
     <string name="error_enter_price_per_inch_c">Enter price per inch for belt type C.</string>
+    <string name="order_date">Order date: %s</string>
+    <string name="belts_of_size_a">Belts of size A: %d</string>
+    <string name="belts_of_size_b">Belts of size B: %d</string>
+    <string name="belts_of_size_c">Belts of size C: %d</string>
 
     <string name="nitin_traders">Nitin Traders</string>
     <string name="save">SAVE</string>

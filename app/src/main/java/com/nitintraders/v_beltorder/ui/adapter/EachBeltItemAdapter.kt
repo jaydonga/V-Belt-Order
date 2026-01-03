@@ -10,7 +10,8 @@ import com.nitintraders.v_beltorder.data.BeltItem
 import com.nitintraders.v_beltorder.databinding.ItemEachBeltItemBinding
 import com.nitintraders.v_beltorder.utils.orZero
 
-class EachBeltItemAdapter() : RecyclerView.Adapter<EachBeltItemAdapter.BeltItemViewHolder>() {
+class EachBeltItemAdapter(private val beltType: BeltType) :
+    RecyclerView.Adapter<EachBeltItemAdapter.BeltItemViewHolder>() {
 
     private var itemClickListener: ((item: BeltItem, index: Int) -> Unit)? = null
     private var itemUpdateListener: (() -> Unit)? = null
@@ -97,7 +98,7 @@ class EachBeltItemAdapter() : RecyclerView.Adapter<EachBeltItemAdapter.BeltItemV
     fun addNewItems(numberOfNewItems: Int) {
         val currentLastIndex = beltItems.lastIndex
         repeat(numberOfNewItems) {
-            beltItems.add(BeltItem())
+            beltItems.add(BeltItem(beltType = beltType))
         }
         notifyItemRangeInserted(currentLastIndex + 1, numberOfNewItems)
     }
@@ -106,5 +107,11 @@ class EachBeltItemAdapter() : RecyclerView.Adapter<EachBeltItemAdapter.BeltItemV
         beltItems.removeAt(index)
         notifyItemRemoved(index)
         itemUpdateListener?.invoke()
+    }
+
+    enum class BeltType {
+        A,
+        B,
+        C,
     }
 }
