@@ -19,7 +19,9 @@
     <string name="total_of_type_c">Total belts of type C: %d,\nTotal inches of C belts: %d,\nTotal price for C: <b>%.2f ₹</b></string>
     <string name="price_of_1_inch">Price of 1 inch (₹)</string>
     <string name="customer_name">Customer name</string>
-    <string name="grand_total">Total belts: %d\nGrand total: %.2f ₹</string>
+    <string name="total_belts">Total belts: %d</string>
+    <string name="total_amount">Total amount: %.2f ₹</string>
+    <string name="total_belts_and_grand_total">Total belts: %d\nGrand total: %.2f ₹</string>
     <string name="error_enter_customer_name">Enter customer name.</string>
     <string name="error_enter_price_per_inch_a">Enter price per inch for belt type A.</string>
     <string name="error_enter_price_per_inch_b">Enter price per inch for belt type B.</string>

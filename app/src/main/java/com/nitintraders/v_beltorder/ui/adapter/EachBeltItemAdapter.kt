@@ -24,11 +24,7 @@ class EachBeltItemAdapter() : RecyclerView.Adapter<EachBeltItemAdapter.BeltItemV
         parent: ViewGroup,
         viewType: Int,
     ): BeltItemViewHolder {
-        val binding = ItemEachBeltItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
+        val binding = ItemEachBeltItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BeltItemViewHolder(binding, itemClickListener)
     }
 
@@ -97,7 +93,6 @@ class EachBeltItemAdapter() : RecyclerView.Adapter<EachBeltItemAdapter.BeltItemV
     fun setItemUpdateListener(itemUpdateListener: () -> Unit) {
         this.itemUpdateListener = itemUpdateListener
     }
-
 
     fun addNewItems(numberOfNewItems: Int) {
         val currentLastIndex = beltItems.lastIndex

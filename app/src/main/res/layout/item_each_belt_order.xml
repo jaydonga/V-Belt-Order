@@ -43,6 +43,7 @@
         android:id="@+id/imageViewDeleteOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
         android:src="@android:drawable/ic_delete"
         app:layout_constraintBottom_toTopOf="@id/textViewTotalBelts"
         app:layout_constraintEnd_toEndOf="@id/textViewCustomerName"

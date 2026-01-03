@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/grand_total"
+                android:text="@string/total_belts_and_grand_total"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -183,7 +183,8 @@ class CreateNewOrderFragment : Fragment() {
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
         totalBelts = totalBeltsOfTypeA + totalBeltsOfTypeB + totalBeltsOfTypeC
-        binding.textViewGrandTotal.text = getString(R.string.grand_total, totalBelts, grandTotal)
+        binding.textViewGrandTotal.text =
+            getString(R.string.total_belts_and_grand_total, totalBelts, grandTotal)
     }
 
     private fun handleAdapterBItemUpdate() {
@@ -198,7 +199,8 @@ class CreateNewOrderFragment : Fragment() {
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
         totalBelts = totalBeltsOfTypeA + totalBeltsOfTypeB + totalBeltsOfTypeC
-        binding.textViewGrandTotal.text = getString(R.string.grand_total, totalBelts, grandTotal)
+        binding.textViewGrandTotal.text =
+            getString(R.string.total_belts_and_grand_total, totalBelts, grandTotal)
     }
 
     private fun handleAdapterCItemUpdate() {
@@ -213,7 +215,8 @@ class CreateNewOrderFragment : Fragment() {
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
         totalBelts = totalBeltsOfTypeA + totalBeltsOfTypeB + totalBeltsOfTypeC
-        binding.textViewGrandTotal.text = getString(R.string.grand_total, totalBelts, grandTotal)
+        binding.textViewGrandTotal.text =
+            getString(R.string.total_belts_and_grand_total, totalBelts, grandTotal)
     }
 
     private fun handleClickListeners() {
