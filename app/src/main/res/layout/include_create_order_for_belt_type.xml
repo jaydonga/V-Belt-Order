@@ -48,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutPriceOf1Inch"
         tools:itemCount="5"
-        tools:listitem="@layout/item_belt_order" />
+        tools:listitem="@layout/item_each_belt_item" />
 
     <TextView
         android:id="@+id/textViewTotalInchesCostForSize"

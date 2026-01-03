@@ -7,21 +7,24 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.nitintraders.v_beltorder.R
 import com.nitintraders.v_beltorder.data.BeltItem
-import com.nitintraders.v_beltorder.databinding.ItemBeltOrderBinding
+import com.nitintraders.v_beltorder.databinding.ItemEachBeltItemBinding
 import com.nitintraders.v_beltorder.utils.orZero
 
-class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolder>() {
+class EachBeltItemAdapter() : RecyclerView.Adapter<EachBeltItemAdapter.BeltItemViewHolder>() {
 
     private var itemClickListener: ((item: BeltItem, index: Int) -> Unit)? = null
     private var itemUpdateListener: (() -> Unit)? = null
 
     private val beltItems = mutableListOf<BeltItem>()
 
+    val allBeltItems: List<BeltItem>
+        get() = beltItems
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): BeltItemViewHolder {
-        val binding = ItemBeltOrderBinding.inflate(
+        val binding = ItemEachBeltItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -29,17 +32,14 @@ class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolde
         return BeltItemViewHolder(binding, itemClickListener)
     }
 
-    override fun onBindViewHolder(
-        holder: BeltItemViewHolder,
-        position: Int,
-    ) {
+    override fun onBindViewHolder(holder: BeltItemViewHolder, position: Int) {
         holder.bind(beltItems[position])
     }
 
     override fun getItemCount() = beltItems.size
 
     inner class BeltItemViewHolder(
-        private val binding: ItemBeltOrderBinding,
+        private val binding: ItemEachBeltItemBinding,
         private val itemClickListener: ((item: BeltItem, index: Int) -> Unit)?,
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -47,7 +47,6 @@ class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolde
         private var quantityWatcher: TextWatcher? = null
 
         fun bind(beltItem: BeltItem) {
-
             sizeWatcher?.let { watcher ->
                 binding.editTextSizeInInch.removeTextChangedListener(
                     watcher
@@ -113,7 +112,4 @@ class BeltItemAdapter() : RecyclerView.Adapter<BeltItemAdapter.BeltItemViewHolde
         notifyItemRemoved(index)
         itemUpdateListener?.invoke()
     }
-
-    val allBeltItems: List<BeltItem>
-        get() = beltItems
 }
