@@ -111,7 +111,7 @@ class CreateNewOrderFragment : Fragment() {
             }
         }
 
-        binding.layoutBeltTypeA.editTextPriceOfSize.addTextChangedListener { text ->
+        binding.layoutBeltTypeA.editTextPriceOfBeltType.addTextChangedListener { text ->
             if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeA.textInputLayoutPriceOf1Inch.error =
                     getString(R.string.error_enter_price_per_inch_a)
@@ -123,7 +123,7 @@ class CreateNewOrderFragment : Fragment() {
             handleAdapterAItemUpdate()
         }
 
-        binding.layoutBeltTypeB.editTextPriceOfSize.addTextChangedListener { text ->
+        binding.layoutBeltTypeB.editTextPriceOfBeltType.addTextChangedListener { text ->
             if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeB.textInputLayoutPriceOf1Inch.error =
                     getString(R.string.error_enter_price_per_inch_b)
@@ -135,7 +135,7 @@ class CreateNewOrderFragment : Fragment() {
             handleAdapterBItemUpdate()
         }
 
-        binding.layoutBeltTypeC.editTextPriceOfSize.addTextChangedListener { text ->
+        binding.layoutBeltTypeC.editTextPriceOfBeltType.addTextChangedListener { text ->
             if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeC.textInputLayoutPriceOf1Inch.error =
                     getString(R.string.error_enter_price_per_inch_c)
@@ -152,9 +152,9 @@ class CreateNewOrderFragment : Fragment() {
         binding.layoutBeltTypeC.buttonAddNewItemSize.performClick()
 
         binding.editTextCustomerName.setText("")
-        binding.layoutBeltTypeA.editTextPriceOfSize.setText("")
-        binding.layoutBeltTypeB.editTextPriceOfSize.setText("")
-        binding.layoutBeltTypeC.editTextPriceOfSize.setText("")
+        binding.layoutBeltTypeA.editTextPriceOfBeltType.setText("")
+        binding.layoutBeltTypeB.editTextPriceOfBeltType.setText("")
+        binding.layoutBeltTypeC.editTextPriceOfBeltType.setText("")
     }
 
     private fun addAdapterItemUpdateListener() {
@@ -175,7 +175,7 @@ class CreateNewOrderFragment : Fragment() {
         val totalInchesForBeltTypeA = adapterBeltTypeA.allBeltItems.sumOf { it.totalInches }
         totalBeltsOfTypeA = adapterBeltTypeA.allBeltItems.sumOf { it.quantity.orZero() }
         val pricePerInchForBeltTypeA =
-            binding.layoutBeltTypeA.editTextPriceOfSize.text?.toString()?.toFloatOrNull().orZero()
+            binding.layoutBeltTypeA.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsA = (totalInchesForBeltTypeA * pricePerInchForBeltTypeA).toMaxTwoDecimalPlaces()
         binding.layoutBeltTypeA.textViewTotalInchesCostForSize.text = getString(
             R.string.total_of_type_a, totalBeltsOfTypeA, totalInchesForBeltTypeA, totalPriceForBeltsA
@@ -191,7 +191,7 @@ class CreateNewOrderFragment : Fragment() {
         val totalInchesForBeltTypeB = adapterBeltTypeB.allBeltItems.sumOf { it.totalInches }
         totalBeltsOfTypeB = adapterBeltTypeB.allBeltItems.sumOf { it.quantity.orZero() }
         val pricePerInchForBeltTypeB =
-            binding.layoutBeltTypeB.editTextPriceOfSize.text?.toString()?.toFloatOrNull().orZero()
+            binding.layoutBeltTypeB.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsB = (totalInchesForBeltTypeB * pricePerInchForBeltTypeB).toMaxTwoDecimalPlaces()
         binding.layoutBeltTypeB.textViewTotalInchesCostForSize.text = getString(
             R.string.total_of_type_b, totalBeltsOfTypeB, totalInchesForBeltTypeB, totalPriceForBeltsB
@@ -207,7 +207,7 @@ class CreateNewOrderFragment : Fragment() {
         val totalInchesForBeltTypeC = adapterBeltTypeC.allBeltItems.sumOf { it.totalInches }
         totalBeltsOfTypeC = adapterBeltTypeC.allBeltItems.sumOf { it.quantity.orZero() }
         val pricePerInchForBeltTypeC =
-            binding.layoutBeltTypeC.editTextPriceOfSize.text?.toString()?.toFloatOrNull().orZero()
+            binding.layoutBeltTypeC.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsC = (totalInchesForBeltTypeC * pricePerInchForBeltTypeC).toMaxTwoDecimalPlaces()
         binding.layoutBeltTypeC.textViewTotalInchesCostForSize.text = getString(
             R.string.total_of_type_c, totalBeltsOfTypeC, totalInchesForBeltTypeC, totalPriceForBeltsC

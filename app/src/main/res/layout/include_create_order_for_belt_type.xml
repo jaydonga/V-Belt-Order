@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@id/textViewVBeltType">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPriceOfSize"
+            android:id="@+id/editTextPriceOfBeltType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
