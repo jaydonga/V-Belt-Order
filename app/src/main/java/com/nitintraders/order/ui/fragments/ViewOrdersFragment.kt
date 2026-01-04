@@ -13,13 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitintraders.order.databinding.FragmentViewOrdersBinding
 import com.nitintraders.order.ui.adapter.EachBeltOrderAdapter
 import com.nitintraders.order.viewmodel.ViewOrdersViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ViewOrdersFragment : Fragment() {
 
     private lateinit var binding: FragmentViewOrdersBinding
     private val viewModel: ViewOrdersViewModel by viewModels()
-    private val adapter = EachBeltOrderAdapter()
+    private lateinit var beltOrdersAdapter: EachBeltOrderAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        beltOrdersAdapter = EachBeltOrderAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +40,7 @@ class ViewOrdersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter.setItemClickListener { clickEventType, index ->
+        beltOrdersAdapter.setItemClickListener { clickEventType, index ->
             when (clickEventType) {
                 EachBeltOrderAdapter.ClickEventType.ItemRemoveEvent -> {
                     // Handle item remove event
@@ -45,11 +52,12 @@ class ViewOrdersFragment : Fragment() {
             }
         }
 
+        binding.recyclerViewAllOrder.adapter = beltOrdersAdapter
         binding.recyclerViewAllOrder.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launch {
             viewModel.allBeltOrders.flowWithLifecycle(lifecycle, Lifecycle.State.CREATED).collect {
-                adapter.setBeltOrders(it)
+                beltOrdersAdapter.setBeltOrders(it)
             }
         }
     }
