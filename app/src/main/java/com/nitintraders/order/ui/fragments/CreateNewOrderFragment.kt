@@ -295,7 +295,7 @@ class CreateNewOrderFragment : Fragment() {
         ).flatten()
 
         val beltOrder = BeltOrder(
-            orderId = orderId,
+            orderId = if (orderId == -1L) 0 else orderId,
             customerName = customerName,
             totalBeltsOfTypeA = totalBeltsOfTypeA,
             totalBeltsOfTypeB = totalBeltsOfTypeB,

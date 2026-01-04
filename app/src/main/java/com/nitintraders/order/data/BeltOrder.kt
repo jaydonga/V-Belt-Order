@@ -4,7 +4,7 @@ import com.nitintraders.order.database.BeltOrderEntity
 import tools.jackson.databind.ObjectMapper
 
 data class BeltOrder(
-    val orderId: Long = -1,
+    val orderId: Long,
     val customerName: String,
     val totalBeltsOfTypeA: Int,
     val totalBeltsOfTypeB: Int,
@@ -16,7 +16,7 @@ data class BeltOrder(
 ) {
     fun toEntity(): BeltOrderEntity {
         return BeltOrderEntity(
-            orderId = orderId,
+            orderId = if (orderId == -1L) 0 else orderId,
             customerName = customerName,
             totalBeltsOfTypeA = totalBeltsOfTypeA,
             totalBeltsOfTypeB = totalBeltsOfTypeB,

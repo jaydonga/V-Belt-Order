@@ -35,6 +35,7 @@ class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrder
     fun setBeltOrders(beltOrders: List<BeltOrder>) {
         this.beltOrders.clear()
         this.beltOrders.addAll(beltOrders)
+        notifyItemRangeChanged(0, beltOrders.size)
     }
 
     fun setItemClickListener(itemClickListener: (ClickEventType, Int) -> Unit) {

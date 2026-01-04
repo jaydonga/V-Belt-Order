@@ -9,7 +9,7 @@ import tools.jackson.module.kotlin.jacksonObjectMapper
 
 @Entity
 data class BeltOrderEntity(
-    @PrimaryKey(autoGenerate = true) val orderId: Long = -1,
+    @PrimaryKey(autoGenerate = true) val orderId: Long,
     val customerName: String,
     val totalBeltsOfTypeA: Int,
     val totalBeltsOfTypeB: Int,
