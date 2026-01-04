@@ -6,20 +6,20 @@ import javax.inject.Inject
 
 interface BeltOrdersRepository {
 
-    fun addOrder(beltOrder: BeltOrder): Long
+    suspend fun addOrder(beltOrder: BeltOrder): Long
 
-    fun updateOrder(beltOrder: BeltOrder)
+    suspend fun updateOrder(beltOrder: BeltOrder)
 
-    fun getAllOrders(): List<BeltOrder>
+    suspend fun getAllOrders(): List<BeltOrder>
 
-    fun deleteOrder(beltOrder: BeltOrder): Boolean
+    suspend fun deleteOrder(beltOrder: BeltOrder): Boolean
 }
 
 class BeltOrdersRepositoryImpl @Inject constructor(
     private val beltOrdersDataSource: BeltOrdersDataSource,
 ) : BeltOrdersRepository {
 
-    override fun addOrder(beltOrder: BeltOrder): Long {
+    override suspend fun addOrder(beltOrder: BeltOrder): Long {
         return if (beltOrdersDataSource.orderExists(beltOrder.orderId)) {
             beltOrdersDataSource.updateOrder(beltOrder)
             beltOrder.orderId
@@ -28,12 +28,13 @@ class BeltOrdersRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun updateOrder(beltOrder: BeltOrder) {
+    override suspend fun updateOrder(beltOrder: BeltOrder) {
         beltOrdersDataSource.updateOrder(beltOrder)
     }
 
-    override fun getAllOrders(): List<BeltOrder> = beltOrdersDataSource.getAllOrders()
+    override suspend fun getAllOrders(): List<BeltOrder> = beltOrdersDataSource.getAllOrders()
 
-    override fun deleteOrder(beltOrder: BeltOrder): Boolean = beltOrdersDataSource.deleteOrder(beltOrder)
+    override suspend fun deleteOrder(beltOrder: BeltOrder): Boolean =
+        beltOrdersDataSource.deleteOrder(beltOrder)
 
 }

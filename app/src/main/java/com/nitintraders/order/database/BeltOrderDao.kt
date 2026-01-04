@@ -11,17 +11,17 @@ import androidx.room.Update
 interface BeltOrderDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addNewOrder(beltOrder: BeltOrderEntity): Long
+    suspend fun addNewOrder(beltOrder: BeltOrderEntity): Long
 
     @Update
-    fun updateOrder(beltOrder: BeltOrderEntity): Int
+    suspend fun updateOrder(beltOrder: BeltOrderEntity): Int
 
     @Delete
-    fun deleteOrder(beltOrder: BeltOrderEntity): Int
+    suspend fun deleteOrder(beltOrder: BeltOrderEntity): Int
 
     @Query("SELECT * FROM ${BeltOrderEntity.TABLE_NAME}")
-    fun getAllOrders(): List<BeltOrderEntity>
+    suspend fun getAllOrders(): List<BeltOrderEntity>
 
-    fun orderExists(orderId: Long): Boolean = getAllOrders().any { it.orderId == orderId }
+    suspend fun orderExists(orderId: Long): Boolean = getAllOrders().any { it.orderId == orderId }
 
 }
