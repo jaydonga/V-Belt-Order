@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeScreen"
-        android:name="com.nitintraders.v_beltorder.ui.fragments.HomeScreenFragment"
+        android:name="com.nitintraders.order.ui.fragments.HomeScreenFragment"
         android:label="Profile">
 
         <action
@@ -19,12 +19,12 @@
 
     <fragment
         android:id="@+id/createNewOrder"
-        android:name="com.nitintraders.v_beltorder.ui.fragments.CreateNewOrderFragment"
+        android:name="com.nitintraders.order.ui.fragments.CreateNewOrderFragment"
         android:label="CreateNewOrderFragment" />
 
     <fragment
         android:id="@+id/viewOrdersFragment"
-        android:name="com.nitintraders.v_beltorder.ui.fragments.ViewOrdersFragment"
+        android:name="com.nitintraders.order.ui.fragments.ViewOrdersFragment"
         android:label="ViewOrdersFragment" />
 
 </navigation>

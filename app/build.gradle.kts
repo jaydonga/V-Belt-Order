@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    namespace = "com.nitintraders.v_beltorder"
+    namespace = "com.nitintraders.order"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.nitintraders.v_beltorder"
+        applicationId = "com.nitintraders.order"
         minSdk = 30
         targetSdk = 36
         versionCode = 1
