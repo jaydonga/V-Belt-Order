@@ -19,7 +19,7 @@ interface BeltOrderDao {
     @Delete
     suspend fun deleteOrder(beltOrder: BeltOrderEntity): Int
 
-    @Query("SELECT * FROM ${BeltOrderEntity.TABLE_NAME}")
+    @Query("SELECT * FROM ${BeltOrderEntity.TABLE_NAME} ORDER BY orderDateTime DESC")
     suspend fun getAllOrders(): List<BeltOrderEntity>
 
     @Query("SELECT EXISTS(SELECT * FROM ${BeltOrderEntity.TABLE_NAME} WHERE orderId = :orderId)")

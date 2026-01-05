@@ -43,7 +43,7 @@ class ViewOrdersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        beltOrdersAdapter.setItemClickListener { clickEventType, beltOrder, index ->
+        beltOrdersAdapter.setItemClickListener { clickEventType, beltOrder ->
             when (clickEventType) {
                 EachBeltOrderAdapter.ClickEventType.ItemRemoveEvent -> {
                     confirmBeforeDelete(beltOrder)
