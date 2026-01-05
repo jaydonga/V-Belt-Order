@@ -14,6 +14,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitintraders.order.R
+import com.nitintraders.order.data.BeltItem
 import com.nitintraders.order.data.BeltOrder
 import com.nitintraders.order.databinding.FragmentCreateNewOrderBinding
 import com.nitintraders.order.databinding.IncludeCreateOrderForBeltTypeBinding
@@ -258,7 +259,14 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.buttonSave.setOnClickListener {
-            saveOrder()
+            val allBeltItems = listOf(
+                adapterBeltTypeA.allBeltItems.filter { it.totalInches > 0 },
+                adapterBeltTypeB.allBeltItems.filter { it.totalInches > 0 },
+                adapterBeltTypeC.allBeltItems.filter { it.totalInches > 0 },
+            ).flatten()
+            if (allBeltItems.isNotEmpty()) {
+                saveOrder(allBeltItems)
+            }
         }
 
         lifecycleScope.launch {
@@ -284,16 +292,18 @@ class CreateNewOrderFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         Log.e("CreateNewOrderFragment", "onStop() called")
-        saveOrder()
-    }
-
-    private fun saveOrder() {
         val allBeltItems = listOf(
             adapterBeltTypeA.allBeltItems.filter { it.totalInches > 0 },
             adapterBeltTypeB.allBeltItems.filter { it.totalInches > 0 },
             adapterBeltTypeC.allBeltItems.filter { it.totalInches > 0 },
         ).flatten()
 
+        if (allBeltItems.isNotEmpty()) {
+            saveOrder(allBeltItems)
+        }
+    }
+
+    private fun saveOrder(allBeltItems: List<BeltItem>) {
         val beltOrder = BeltOrder(
             orderId = if (orderId == -1L) 0 else orderId,
             customerName = customerName,
