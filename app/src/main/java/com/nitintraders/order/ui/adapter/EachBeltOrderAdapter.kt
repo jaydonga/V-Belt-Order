@@ -13,7 +13,7 @@ class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrder
 
     private val simpleDateFormat = java.text.SimpleDateFormat("dd MMMM yyyy", Locale.UK)
     private var beltOrders = mutableListOf<BeltOrder>()
-    private var itemClickListener: ((ClickEventType, Int) -> Unit)? = null
+    private var itemClickListener: ((ClickEventType, BeltOrder) -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -38,8 +38,14 @@ class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrder
         notifyItemRangeChanged(0, beltOrders.size)
     }
 
-    fun setItemClickListener(itemClickListener: (ClickEventType, Int) -> Unit) {
+    fun setItemClickListener(itemClickListener: (ClickEventType, BeltOrder) -> Unit) {
         this.itemClickListener = itemClickListener
+    }
+
+    fun adjustListAfterOrderDeletion(deletedBeltOrder: BeltOrder) {
+        val deletedIndex = beltOrders.indexOf(deletedBeltOrder)
+        beltOrders.remove(deletedBeltOrder)
+        notifyItemRemoved(deletedIndex)
     }
 
     inner class BeltOrderViewHolder(
@@ -80,14 +86,19 @@ class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrder
             )
 
             binding.imageViewDeleteOrder.setOnClickListener {
-                itemClickListener?.invoke(ClickEventType.ItemRemoveEvent, bindingAdapterPosition)
+                itemClickListener?.invoke(
+                    ClickEventType.ItemRemoveEvent,
+                    beltOrders[bindingAdapterPosition],
+                )
             }
 
             binding.root.setOnClickListener {
-                itemClickListener?.invoke(ClickEventType.ItemClickEvent, bindingAdapterPosition)
+                itemClickListener?.invoke(
+                    ClickEventType.ItemClickEvent,
+                    beltOrders[bindingAdapterPosition],
+                )
             }
         }
-
     }
 
     enum class ClickEventType {

@@ -30,6 +30,9 @@
     <string name="belts_of_size_a">Belts of size A: %d</string>
     <string name="belts_of_size_b">Belts of size B: %d</string>
     <string name="belts_of_size_c">Belts of size C: %d</string>
+    <string name="delete_the_order_from_x">Delete the order from %s?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <string name="nitin_traders">Nitin Traders</string>
     <string name="save">SAVE</string>

@@ -36,5 +36,4 @@ class BeltOrdersRepositoryImpl @Inject constructor(
 
     override suspend fun deleteOrder(beltOrder: BeltOrder): Boolean =
         beltOrdersDataSource.deleteOrder(beltOrder)
-
 }

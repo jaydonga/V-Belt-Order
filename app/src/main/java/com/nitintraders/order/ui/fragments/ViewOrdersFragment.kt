@@ -1,5 +1,6 @@
 package com.nitintraders.order.ui.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nitintraders.order.R
+import com.nitintraders.order.data.BeltOrder
 import com.nitintraders.order.databinding.FragmentViewOrdersBinding
 import com.nitintraders.order.ui.adapter.EachBeltOrderAdapter
 import com.nitintraders.order.viewmodel.ViewOrdersViewModel
@@ -40,10 +43,10 @@ class ViewOrdersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        beltOrdersAdapter.setItemClickListener { clickEventType, index ->
+        beltOrdersAdapter.setItemClickListener { clickEventType, beltOrder, index ->
             when (clickEventType) {
                 EachBeltOrderAdapter.ClickEventType.ItemRemoveEvent -> {
-                    // Handle item remove event
+                    confirmBeforeDelete(beltOrder)
                 }
 
                 EachBeltOrderAdapter.ClickEventType.ItemClickEvent -> {
@@ -61,6 +64,28 @@ class ViewOrdersFragment : Fragment() {
             }
         }
 
+        lifecycleScope.launch {
+            viewModel.orderDeleted.flowWithLifecycle(lifecycle, Lifecycle.State.CREATED).collect {
+                beltOrdersAdapter.adjustListAfterOrderDeletion(it)
+            }
+        }
+
         viewModel.retrieveAllBeltOrders()
+    }
+
+    private fun confirmBeforeDelete(beltOrder: BeltOrder) {
+        val builder = AlertDialog.Builder(context)
+        builder
+            .setTitle(getString(R.string.delete_the_order_from_x, beltOrder.customerName))
+            .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                viewModel.deleteOrder(beltOrder)
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, which ->
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }
