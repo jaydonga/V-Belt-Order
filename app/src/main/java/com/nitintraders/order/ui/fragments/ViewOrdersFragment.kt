@@ -60,5 +60,7 @@ class ViewOrdersFragment : Fragment() {
                 beltOrdersAdapter.setBeltOrders(it)
             }
         }
+
+        viewModel.retrieveAllBeltOrders()
     }
 }

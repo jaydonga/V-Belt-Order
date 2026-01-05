@@ -22,6 +22,7 @@ interface BeltOrderDao {
     @Query("SELECT * FROM ${BeltOrderEntity.TABLE_NAME}")
     suspend fun getAllOrders(): List<BeltOrderEntity>
 
-    suspend fun orderExists(orderId: Long): Boolean = getAllOrders().any { it.orderId == orderId }
+    @Query("SELECT EXISTS(SELECT * FROM ${BeltOrderEntity.TABLE_NAME} WHERE orderId = :orderId)")
+    suspend fun orderExists(orderId: Long): Boolean
 
 }

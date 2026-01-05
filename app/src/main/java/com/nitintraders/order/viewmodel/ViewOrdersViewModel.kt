@@ -18,7 +18,7 @@ class ViewOrdersViewModel @Inject constructor(
     private val _allBeltOrders = MutableStateFlow<List<BeltOrder>>(emptyList())
     val allBeltOrders: Flow<List<BeltOrder>> = _allBeltOrders
 
-    fun getAllBeltOrders() {
+    fun retrieveAllBeltOrders() {
         viewModelScope.launch {
             val listBeltOrders = beltOrdersRepository.getAllOrders()
             _allBeltOrders.value = listBeltOrders
