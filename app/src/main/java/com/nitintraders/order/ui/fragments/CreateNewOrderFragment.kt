@@ -1,6 +1,7 @@
 package com.nitintraders.order.ui.fragments
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -72,9 +73,9 @@ class CreateNewOrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.layoutBeltTypeA.textViewVBeltType.text = getString(R.string.label_v_belt_type_a)
-        binding.layoutBeltTypeB.textViewVBeltType.text = getString(R.string.label_v_belt_type_b)
-        binding.layoutBeltTypeC.textViewVBeltType.text = getString(R.string.label_v_belt_type_c)
+        binding.layoutBeltTypeA.textViewVBeltType.text = getText(R.string.label_v_belt_type_a)
+        binding.layoutBeltTypeB.textViewVBeltType.text = getText(R.string.label_v_belt_type_b)
+        binding.layoutBeltTypeC.textViewVBeltType.text = getText(R.string.label_v_belt_type_c)
 
         binding.layoutBeltTypeA.recyclerViewSizes.layoutManager = LinearLayoutManager(
             requireContext(),
@@ -118,7 +119,7 @@ class CreateNewOrderFragment : Fragment() {
         binding.layoutBeltTypeA.editTextPriceOfBeltType.addTextChangedListener { text ->
             if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeA.textInputLayoutPriceOf1Inch.error =
-                    getString(R.string.error_enter_price_per_inch_a)
+                    getText(R.string.error_enter_price_per_inch_a)
                 setBeltItemInputVisibility(false, binding.layoutBeltTypeA)
             } else {
                 binding.layoutBeltTypeA.textInputLayoutPriceOf1Inch.isErrorEnabled = false
@@ -130,7 +131,7 @@ class CreateNewOrderFragment : Fragment() {
         binding.layoutBeltTypeB.editTextPriceOfBeltType.addTextChangedListener { text ->
             if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeB.textInputLayoutPriceOf1Inch.error =
-                    getString(R.string.error_enter_price_per_inch_b)
+                    getText(R.string.error_enter_price_per_inch_b)
                 setBeltItemInputVisibility(false, binding.layoutBeltTypeB)
             } else {
                 binding.layoutBeltTypeB.textInputLayoutPriceOf1Inch.isErrorEnabled = false
@@ -142,7 +143,7 @@ class CreateNewOrderFragment : Fragment() {
         binding.layoutBeltTypeC.editTextPriceOfBeltType.addTextChangedListener { text ->
             if (text.isNullOrEmpty() || text.toString().toFloat() <= 0F) {
                 binding.layoutBeltTypeC.textInputLayoutPriceOf1Inch.error =
-                    getString(R.string.error_enter_price_per_inch_c)
+                    getText(R.string.error_enter_price_per_inch_c)
                 setBeltItemInputVisibility(false, binding.layoutBeltTypeC)
             } else {
                 binding.layoutBeltTypeC.textInputLayoutPriceOf1Inch.isErrorEnabled = false
@@ -181,8 +182,12 @@ class CreateNewOrderFragment : Fragment() {
         val pricePerInchForBeltTypeA =
             binding.layoutBeltTypeA.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsA = (totalInchesForBeltTypeA * pricePerInchForBeltTypeA).toMaxTwoDecimalPlaces()
-        binding.layoutBeltTypeA.textViewTotalInchesCostForSize.text = getString(
+        val totalOfTypeA = getString(
             R.string.total_of_type_a, totalBeltsOfTypeA, totalInchesForBeltTypeA, totalPriceForBeltsA
+        )
+        binding.layoutBeltTypeA.textViewTotalInchesCostForSize.text = Html.fromHtml(
+            totalOfTypeA,
+            Html.FROM_HTML_MODE_COMPACT
         )
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
@@ -197,8 +202,12 @@ class CreateNewOrderFragment : Fragment() {
         val pricePerInchForBeltTypeB =
             binding.layoutBeltTypeB.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsB = (totalInchesForBeltTypeB * pricePerInchForBeltTypeB).toMaxTwoDecimalPlaces()
-        binding.layoutBeltTypeB.textViewTotalInchesCostForSize.text = getString(
+        val totalOfTypeB = getString(
             R.string.total_of_type_b, totalBeltsOfTypeB, totalInchesForBeltTypeB, totalPriceForBeltsB
+        )
+        binding.layoutBeltTypeB.textViewTotalInchesCostForSize.text = Html.fromHtml(
+            totalOfTypeB,
+            Html.FROM_HTML_MODE_COMPACT
         )
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
@@ -213,8 +222,12 @@ class CreateNewOrderFragment : Fragment() {
         val pricePerInchForBeltTypeC =
             binding.layoutBeltTypeC.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsC = (totalInchesForBeltTypeC * pricePerInchForBeltTypeC).toMaxTwoDecimalPlaces()
-        binding.layoutBeltTypeC.textViewTotalInchesCostForSize.text = getString(
+        val totalOfTypeC = getString(
             R.string.total_of_type_c, totalBeltsOfTypeC, totalInchesForBeltTypeC, totalPriceForBeltsC
+        )
+        binding.layoutBeltTypeC.textViewTotalInchesCostForSize.text = Html.fromHtml(
+            totalOfTypeC,
+            Html.FROM_HTML_MODE_COMPACT
         )
 
         grandTotal = (totalPriceForBeltsA + totalPriceForBeltsB + totalPriceForBeltsC).toMaxTwoDecimalPlaces()
