@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.main_nav_host_fragment
+        ) as NavHostFragment
         navController = navHostFragment.navController
 
         setSupportActionBar(binding.toolbar)
@@ -33,6 +35,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navigateToViewOrders() {
-        navController.navigate(R.id.action_homeScreen_to_viewOrdersFragment)
+        navController.navigate(R.id.action_homeScreen_to_viewOrders)
+    }
+
+    fun navigateToViewOrdersFragment() {
+        if (navController.currentDestination?.id == R.id.createNewOrder) {
+            navController.navigate(R.id.action_createNewOrder_to_viewOrders)
+        }
     }
 }

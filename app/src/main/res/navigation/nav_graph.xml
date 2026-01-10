@@ -13,18 +13,31 @@
             android:id="@+id/action_homeScreen_to_createNewOrder"
             app:destination="@id/createNewOrder" />
         <action
-            android:id="@+id/action_homeScreen_to_viewOrdersFragment"
-            app:destination="@id/viewOrdersFragment" />
+            android:id="@+id/action_homeScreen_to_viewOrders"
+            app:destination="@id/viewOrders" />
     </fragment>
 
     <fragment
         android:id="@+id/createNewOrder"
         android:name="com.nitintraders.order.ui.fragments.CreateNewOrderFragment"
-        android:label="CreateNewOrderFragment" />
+        android:label="CreateNewOrderFragment">
+        <action
+            android:id="@+id/action_createNewOrder_to_viewOrders"
+            app:destination="@id/viewOrders"
+            app:popUpTo="@id/homeScreen"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_createNewOrder_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
 
     <fragment
-        android:id="@+id/viewOrdersFragment"
+        android:id="@+id/viewOrders"
         android:name="com.nitintraders.order.ui.fragments.ViewOrdersFragment"
-        android:label="ViewOrdersFragment" />
+        android:label="ViewOrdersFragment">
+        <action
+            android:id="@+id/action_viewOrders_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
 
 </navigation>

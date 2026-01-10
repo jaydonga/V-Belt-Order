@@ -20,6 +20,7 @@ import com.nitintraders.order.data.BeltItem
 import com.nitintraders.order.data.BeltOrder
 import com.nitintraders.order.databinding.FragmentCreateNewOrderBinding
 import com.nitintraders.order.databinding.IncludeCreateOrderForBeltTypeBinding
+import com.nitintraders.order.ui.activities.MainActivity
 import com.nitintraders.order.ui.adapter.EachBeltItemAdapter
 import com.nitintraders.order.ui.adapter.EachBeltItemAdapter.BeltType.A
 import com.nitintraders.order.ui.adapter.EachBeltItemAdapter.BeltType.B
@@ -28,6 +29,7 @@ import com.nitintraders.order.utils.orZero
 import com.nitintraders.order.utils.toMaxTwoDecimalPlaces
 import com.nitintraders.order.viewmodel.CreateNewOrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -53,6 +55,7 @@ class CreateNewOrderFragment : Fragment() {
     private var customerName = ""
 
     private var orderId = -1L
+    private var orderSavedTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -267,8 +270,9 @@ class CreateNewOrderFragment : Fragment() {
                 adapterBeltTypeB.allBeltItems.filter { it.totalInches > 0 },
                 adapterBeltTypeC.allBeltItems.filter { it.totalInches > 0 },
             ).flatten()
-            if (allBeltItems.isNotEmpty()) {
+            if (customerName.isNotEmpty() && allBeltItems.isNotEmpty()) {
                 saveOrder(allBeltItems)
+                orderSavedTime = System.currentTimeMillis()
             }
         }
 
@@ -276,8 +280,10 @@ class CreateNewOrderFragment : Fragment() {
             viewModel
                 .updatedOrderId
                 .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+                .filter { it >= 0L }
                 .collect {
                     orderId = it
+                    (activity as MainActivity).navigateToViewOrdersFragment()
                 }
         }
     }
@@ -290,20 +296,6 @@ class CreateNewOrderFragment : Fragment() {
         layoutBeltType.dividerCreateOrderForBeltType.isVisible = visible
         layoutBeltType.textViewTotalInchesCostForSize.isVisible = visible
         layoutBeltType.buttonAddNewItemSize.isVisible = visible
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.e("CreateNewOrderFragment", "onStop() called")
-        val allBeltItems = listOf(
-            adapterBeltTypeA.allBeltItems.filter { it.totalInches > 0 },
-            adapterBeltTypeB.allBeltItems.filter { it.totalInches > 0 },
-            adapterBeltTypeC.allBeltItems.filter { it.totalInches > 0 },
-        ).flatten()
-
-        if (allBeltItems.isNotEmpty()) {
-            saveOrder(allBeltItems)
-        }
     }
 
     private fun saveOrder(allBeltItems: List<BeltItem>) {
