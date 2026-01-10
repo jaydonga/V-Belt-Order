@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.nitintraders.order.R
 import com.nitintraders.order.data.BeltItem
 import com.nitintraders.order.data.BeltOrder
@@ -32,7 +33,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class CreateNewOrderFragment : Fragment() {
 
-    private val numberOfBlankItems = 5
     private lateinit var binding: FragmentCreateNewOrderBinding
     private lateinit var adapterBeltTypeA: EachBeltItemAdapter
     private lateinit var adapterBeltTypeB: EachBeltItemAdapter
@@ -77,21 +77,9 @@ class CreateNewOrderFragment : Fragment() {
         binding.layoutBeltTypeB.textViewVBeltType.text = getText(R.string.label_v_belt_type_b)
         binding.layoutBeltTypeC.textViewVBeltType.text = getText(R.string.label_v_belt_type_c)
 
-        binding.layoutBeltTypeA.recyclerViewSizes.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-        binding.layoutBeltTypeB.recyclerViewSizes.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-        binding.layoutBeltTypeC.recyclerViewSizes.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        binding.layoutBeltTypeA.recyclerViewSizes.layoutManager = getLinearLayoutManager()
+        binding.layoutBeltTypeB.recyclerViewSizes.layoutManager = getLinearLayoutManager()
+        binding.layoutBeltTypeC.recyclerViewSizes.layoutManager = getLinearLayoutManager()
 
         binding.layoutBeltTypeA.recyclerViewSizes.adapter = adapterBeltTypeA
         binding.layoutBeltTypeB.recyclerViewSizes.adapter = adapterBeltTypeB
@@ -161,6 +149,8 @@ class CreateNewOrderFragment : Fragment() {
         binding.layoutBeltTypeB.editTextPriceOfBeltType.setText("")
         binding.layoutBeltTypeC.editTextPriceOfBeltType.setText("")
     }
+
+    private fun getLinearLayoutManager() = LinearLayoutManager(requireContext(), VERTICAL, false)
 
     private fun addAdapterItemUpdateListener() {
         adapterBeltTypeA.setItemUpdateListener {
@@ -262,13 +252,13 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.layoutBeltTypeA.buttonAddNewItemSize.setOnClickListener {
-            adapterBeltTypeA.addNewItems(numberOfBlankItems)
+            adapterBeltTypeA.addNewItems(NUMBER_OF_BLANK_ITEMS)
         }
         binding.layoutBeltTypeB.buttonAddNewItemSize.setOnClickListener {
-            adapterBeltTypeB.addNewItems(numberOfBlankItems)
+            adapterBeltTypeB.addNewItems(NUMBER_OF_BLANK_ITEMS)
         }
         binding.layoutBeltTypeC.buttonAddNewItemSize.setOnClickListener {
-            adapterBeltTypeC.addNewItems(numberOfBlankItems)
+            adapterBeltTypeC.addNewItems(NUMBER_OF_BLANK_ITEMS)
         }
 
         binding.buttonSave.setOnClickListener {
@@ -328,5 +318,9 @@ class CreateNewOrderFragment : Fragment() {
             beltItems = allBeltItems,
         )
         viewModel.addOrder(beltOrder)
+    }
+
+    private companion object {
+        private const val NUMBER_OF_BLANK_ITEMS = 5
     }
 }
