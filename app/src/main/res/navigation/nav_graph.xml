@@ -21,6 +21,10 @@
         android:id="@+id/createNewOrder"
         android:name="com.nitintraders.order.ui.fragments.CreateNewOrderFragment"
         android:label="CreateNewOrderFragment">
+        <argument
+            android:name="BeltOrder"
+            android:defaultValue="@null"
+            app:argType="com.nitintraders.order.data.BeltOrder" />
         <action
             android:id="@+id/action_createNewOrder_to_viewOrders"
             app:destination="@id/viewOrders"
@@ -38,6 +42,9 @@
         <action
             android:id="@+id/action_viewOrders_to_homeScreen"
             app:destination="@id/homeScreen" />
+        <action
+            android:id="@+id/action_viewOrders_to_createNewOrder"
+            app:destination="@id/createNewOrder" />
     </fragment>
 
 </navigation>

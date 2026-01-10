@@ -1,8 +1,11 @@
 package com.nitintraders.order.data
 
+import android.os.Parcelable
 import com.nitintraders.order.database.BeltOrderEntity
+import kotlinx.parcelize.Parcelize
 import tools.jackson.databind.ObjectMapper
 
+@Parcelize
 data class BeltOrder(
     val orderId: Long,
     val customerName: String,
@@ -13,7 +16,7 @@ data class BeltOrder(
     val grandTotal: Float,
     val orderDateTime: Long = System.currentTimeMillis(),
     val beltItems: List<BeltItem>,
-) {
+) : Parcelable {
     fun toEntity(): BeltOrderEntity {
         return BeltOrderEntity(
             orderId = if (orderId == -1L) 0 else orderId,

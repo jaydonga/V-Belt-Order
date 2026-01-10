@@ -283,7 +283,7 @@ class CreateNewOrderFragment : Fragment() {
                 .filter { it >= 0L }
                 .collect {
                     orderId = it
-                    (activity as MainActivity).navigateToViewOrdersFragment()
+                    (activity as MainActivity).navigateToViewOrders()
                 }
         }
     }

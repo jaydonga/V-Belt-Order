@@ -35,12 +35,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navigateToViewOrders() {
-        navController.navigate(R.id.action_homeScreen_to_viewOrders)
-    }
-
-    fun navigateToViewOrdersFragment() {
         if (navController.currentDestination?.id == R.id.createNewOrder) {
             navController.navigate(R.id.action_createNewOrder_to_viewOrders)
+        } else if (navController.currentDestination?.id == R.id.homeScreen) {
+            navController.navigate(R.id.action_homeScreen_to_viewOrders)
         }
     }
 }
