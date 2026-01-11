@@ -19,7 +19,7 @@
     <string name="total_of_type_c"><![CDATA[Total belts of type C: %d,<br/>Total inches of C belts: %d,<br/>Total price for <b>C: %.2f ₹</b>]]></string>
     <string name="price_of_1_inch">Price of 1 inch (₹)</string>
     <string name="customer_name">Customer name</string>
-    <string name="total_belts">Total belts: %d</string>
+    <string name="total_belts"><![CDATA[Total belts: <b>%d</b>]]></string>
     <string name="total_amount">Total amount: %.2f ₹</string>
     <string name="total_belts_and_grand_total">Total belts: %d\nGrand total: %.2f ₹</string>
     <string name="error_enter_customer_name">Enter customer name.</string>
@@ -27,9 +27,9 @@
     <string name="error_enter_price_per_inch_b">Enter price per inch for belt type <b>B</b>.</string>
     <string name="error_enter_price_per_inch_c">Enter price per inch for belt type <b>C</b>.</string>
     <string name="order_date">Order date: %s</string>
-    <string name="belts_of_size_a">Belts of size A: %d</string>
-    <string name="belts_of_size_b">Belts of size B: %d</string>
-    <string name="belts_of_size_c">Belts of size C: %d</string>
+    <string name="belts_of_size_a"><![CDATA[Belts of size <b>A: %d</b>]]></string>
+    <string name="belts_of_size_b"><![CDATA[Belts of size <b>B: %d</b>]]></string>
+    <string name="belts_of_size_c"><![CDATA[Belts of size <b>C: %d</b>]]></string>
     <string name="delete_the_order_from_x">Delete the order from %s?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>

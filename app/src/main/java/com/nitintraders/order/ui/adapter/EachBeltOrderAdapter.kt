@@ -1,5 +1,7 @@
 package com.nitintraders.order.ui.adapter
 
+import android.text.Html
+import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -56,29 +58,34 @@ class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrder
             binding.textViewCustomerName.text = beltOrder.customerName
 
             val dateString = simpleDateFormat.format(Date(beltOrder.orderDateTime))
-
             binding.textViewOrderDate.text = binding.textViewOrderDate.context.getString(
                 R.string.order_date,
                 dateString
             )
 
-            binding.textViewBeltsOfSizeA.text = binding.textViewBeltsOfSizeA.context.getString(
+            val totalBeltsOfSizeA = binding.textViewBeltsOfSizeA.context.getString(
                 R.string.belts_of_size_a,
                 beltOrder.totalBeltsOfTypeA
             )
-            binding.textViewBeltsOfSizeB.text = binding.textViewBeltsOfSizeB.context.getString(
+            binding.textViewBeltsOfSizeA.text = Html.fromHtml(totalBeltsOfSizeA, FROM_HTML_MODE_COMPACT)
+
+            val totalBeltsOfSizeB = binding.textViewBeltsOfSizeB.context.getString(
                 R.string.belts_of_size_b,
                 beltOrder.totalBeltsOfTypeB
             )
-            binding.textViewBeltsOfSizeC.text = binding.textViewBeltsOfSizeC.context.getString(
+            binding.textViewBeltsOfSizeB.text = Html.fromHtml(totalBeltsOfSizeB, FROM_HTML_MODE_COMPACT)
+
+            val totalBeltsOfSizeC = binding.textViewBeltsOfSizeC.context.getString(
                 R.string.belts_of_size_c,
                 beltOrder.totalBeltsOfTypeC
             )
+            binding.textViewBeltsOfSizeC.text = Html.fromHtml(totalBeltsOfSizeC, FROM_HTML_MODE_COMPACT)
 
-            binding.textViewTotalBelts.text = binding.textViewTotalBelts.context.getString(
+            val totalBelts = binding.textViewTotalBelts.context.getString(
                 R.string.total_belts,
                 beltOrder.totalBelts
             )
+            binding.textViewTotalBelts.text = Html.fromHtml(totalBelts, FROM_HTML_MODE_COMPACT)
 
             binding.textViewTotalAmount.text = binding.textViewTotalAmount.context.getString(
                 R.string.total_amount,
