@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -61,7 +62,6 @@ class CreateNewOrderFragment : Fragment() {
     private var customerName = ""
 
     private var orderId = -1L
-    private var orderSavedTime = 0L
 
     private var beltOrder: BeltOrder? = null
 
@@ -188,6 +188,16 @@ class CreateNewOrderFragment : Fragment() {
             }?.sortedBy { it.size }.orEmpty()
             adapterBeltTypeC.addNewBeltItems(beltItemsOfTypeC)
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    initSaveOrder(false)
+                    isEnabled = false
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            })
     }
 
     private fun getLinearLayoutManager() = LinearLayoutManager(requireContext(), VERTICAL, false)
@@ -302,13 +312,13 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.buttonSave.setOnClickListener {
-            handleSaveButtonClicked()
+            initSaveOrder(true)
         }
 
         lifecycleScope.launch {
             viewModel
                 .updatedOrderId
-                .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .filter { it >= 0L }
                 .collect {
                     orderId = it
@@ -317,19 +327,39 @@ class CreateNewOrderFragment : Fragment() {
         }
     }
 
-    private fun handleSaveButtonClicked() {
-        if (customerName.isEmpty()) {
-            binding.editTextCustomerName.requestFocus()
-            showAlertDialog(getString(R.string.error_enter_customer_name))
-        } else if (adapterBeltTypeA.allBeltItems.isNotEmpty() && pricePerInchForBeltTypeA <= 0) {
-            binding.layoutBeltTypeA.editTextPriceOfBeltType.requestFocus()
-            showAlertDialog(getString(R.string.error_enter_price_per_inch_a))
-        } else if (adapterBeltTypeB.allBeltItems.isNotEmpty() && pricePerInchForBeltTypeB <= 0) {
-            binding.layoutBeltTypeB.editTextPriceOfBeltType.requestFocus()
-            showAlertDialog(getString(R.string.error_enter_price_per_inch_b))
-        } else if (adapterBeltTypeC.allBeltItems.isNotEmpty() && pricePerInchForBeltTypeC <= 0) {
-            binding.layoutBeltTypeC.editTextPriceOfBeltType.requestFocus()
-            showAlertDialog(getString(R.string.error_enter_price_per_inch_c))
+    private fun initSaveOrder(showAlert: Boolean) {
+        if (customerNameNotOK()) {
+            if (showAlert) {
+                Log.e("CreateNewOrderFragment", "customer name not ok, showing alert")
+                binding.editTextCustomerName.requestFocus()
+                showAlertDialog(getString(R.string.error_enter_customer_name))
+            } else {
+                Log.e("CreateNewOrderFragment", "customer name not ok, not showing alert")
+            }
+        } else if (beltTypeANotOK()) {
+            if (showAlert) {
+                Log.e("CreateNewOrderFragment", "belt type A not ok, showing alert")
+                binding.layoutBeltTypeA.editTextPriceOfBeltType.requestFocus()
+                showAlertDialog(getString(R.string.error_enter_price_per_inch_a))
+            } else {
+                Log.e("CreateNewOrderFragment", "belt type A not ok, not showing alert")
+            }
+        } else if (beltTypeBNotOk()) {
+            if (showAlert) {
+                Log.e("CreateNewOrderFragment", "belt type B not ok, showing alert")
+                binding.layoutBeltTypeB.editTextPriceOfBeltType.requestFocus()
+                showAlertDialog(getString(R.string.error_enter_price_per_inch_b))
+            } else {
+                Log.e("CreateNewOrderFragment", "belt type B not ok, not showing alert")
+            }
+        } else if (beltTypeCNotOK()) {
+            if (showAlert) {
+                Log.e("CreateNewOrderFragment", "belt type C not ok, showing alert")
+                binding.layoutBeltTypeC.editTextPriceOfBeltType.requestFocus()
+                showAlertDialog(getString(R.string.error_enter_price_per_inch_c))
+            } else {
+                Log.e("CreateNewOrderFragment", "belt type C not ok, not showing alert")
+            }
         } else {
             Log.e("CreateNewOrderFragment", "save order")
             val allBeltItems = listOf(
@@ -339,8 +369,21 @@ class CreateNewOrderFragment : Fragment() {
             ).flatten()
 
             saveOrder(allBeltItems)
-            orderSavedTime = System.currentTimeMillis()
         }
+    }
+
+    private fun customerNameNotOK() = customerName.isEmpty()
+
+    private fun beltTypeANotOK(): Boolean {
+        return adapterBeltTypeA.allBeltItems.any { it.totalInches > 0 } && pricePerInchForBeltTypeA <= 0
+    }
+
+    private fun beltTypeBNotOk(): Boolean {
+        return adapterBeltTypeB.allBeltItems.any { it.totalInches > 0 } && pricePerInchForBeltTypeB <= 0
+    }
+
+    private fun beltTypeCNotOK(): Boolean {
+        return adapterBeltTypeC.allBeltItems.any { it.totalInches > 0 } && pricePerInchForBeltTypeC <= 0
     }
 
     private fun setBeltItemInputVisibility(
