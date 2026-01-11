@@ -9,6 +9,9 @@ import tools.jackson.databind.ObjectMapper
 data class BeltOrder(
     val orderId: Long,
     val customerName: String,
+    val priceOfBeltTypeA: Float,
+    val priceOfBeltTypeB: Float,
+    val priceOfBeltTypeC: Float,
     val totalBeltsOfTypeA: Int,
     val totalBeltsOfTypeB: Int,
     val totalBeltsOfTypeC: Int,
@@ -21,6 +24,9 @@ data class BeltOrder(
         return BeltOrderEntity(
             orderId = if (orderId == -1L) 0 else orderId,
             customerName = customerName,
+            priceOfBeltTypeA = priceOfBeltTypeA,
+            priceOfBeltTypeB = priceOfBeltTypeB,
+            priceOfBeltTypeC = priceOfBeltTypeC,
             totalBeltsOfTypeA = totalBeltsOfTypeA,
             totalBeltsOfTypeB = totalBeltsOfTypeB,
             totalBeltsOfTypeC = totalBeltsOfTypeC,

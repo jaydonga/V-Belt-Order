@@ -95,7 +95,7 @@ class EachBeltItemAdapter(private val beltType: BeltType) :
         this.itemUpdateListener = itemUpdateListener
     }
 
-    fun addNewItems(numberOfNewItems: Int) {
+    fun addNewEmptyItems(numberOfNewItems: Int) {
         val currentLastIndex = beltItems.lastIndex
         repeat(numberOfNewItems) {
             beltItems.add(BeltItem(beltType = beltType))
@@ -107,6 +107,11 @@ class EachBeltItemAdapter(private val beltType: BeltType) :
         beltItems.removeAt(index)
         notifyItemRemoved(index)
         itemUpdateListener?.invoke()
+    }
+
+    fun addNewBeltItems(newBeltItems: List<BeltItem>) {
+        beltItems.addAll(newBeltItems)
+        notifyItemRangeInserted(beltItems.size - newBeltItems.size, newBeltItems.size)
     }
 
     enum class BeltType {

@@ -11,7 +11,7 @@ abstract class BeltOrderDatabase : RoomDatabase() {
     abstract fun beltOrderDao(): BeltOrderDao
 
     companion object {
-        private const val BELT_ORDER_DB_NAME = "BeltOrders"
+        private const val BELT_ORDER_DB_NAME = "Belt-Orders"
         fun getInstance(applicationContext: Context): BeltOrderDatabase {
             return Room
                 .databaseBuilder(applicationContext, BeltOrderDatabase::class.java, BELT_ORDER_DB_NAME)

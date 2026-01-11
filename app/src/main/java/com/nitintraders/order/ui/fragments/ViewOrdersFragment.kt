@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nitintraders.order.R
 import com.nitintraders.order.data.BeltOrder
 import com.nitintraders.order.databinding.FragmentViewOrdersBinding
+import com.nitintraders.order.ui.activities.MainActivity
 import com.nitintraders.order.ui.adapter.EachBeltOrderAdapter
 import com.nitintraders.order.viewmodel.ViewOrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +51,7 @@ class ViewOrdersFragment : Fragment() {
                 }
 
                 EachBeltOrderAdapter.ClickEventType.ItemClickEvent -> {
-                    // Handle item click event
+                    (activity as MainActivity).navigateToCreateNewOrder(beltOrder)
                 }
             }
         }

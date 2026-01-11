@@ -1,5 +1,6 @@
 package com.nitintraders.order.ui.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -44,6 +45,10 @@ class CreateNewOrderFragment : Fragment() {
     private var totalBeltsOfTypeC = 0
     private var totalBelts = 0
 
+    private var pricePerInchForBeltTypeA = 0f
+    private var pricePerInchForBeltTypeB = 0f
+    private var pricePerInchForBeltTypeC = 0f
+
     private var totalPriceForBeltsA = 0f
     private var totalPriceForBeltsB = 0f
     private var totalPriceForBeltsC = 0f
@@ -57,8 +62,18 @@ class CreateNewOrderFragment : Fragment() {
     private var orderId = -1L
     private var orderSavedTime = 0L
 
+    private var beltOrder: BeltOrder? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        beltOrder = if (Build.VERSION.SDK_INT < 33) {
+            arguments?.getParcelable(BeltOrder::class.simpleName)
+        } else {
+            arguments?.getParcelable(BeltOrder::class.simpleName, BeltOrder::class.java)
+        }
+        Log.e("CreateNewOrderFragment", "beltOrder: $beltOrder")
+
         adapterBeltTypeA = EachBeltItemAdapter(beltType = A)
         adapterBeltTypeB = EachBeltItemAdapter(beltType = B)
         adapterBeltTypeC = EachBeltItemAdapter(beltType = C)
@@ -143,14 +158,32 @@ class CreateNewOrderFragment : Fragment() {
             handleAdapterCItemUpdate()
         }
 
-        binding.layoutBeltTypeA.buttonAddNewItemSize.performClick()
-        binding.layoutBeltTypeB.buttonAddNewItemSize.performClick()
-        binding.layoutBeltTypeC.buttonAddNewItemSize.performClick()
+        binding.editTextCustomerName.setText(beltOrder?.customerName.orEmpty())
 
-        binding.editTextCustomerName.setText("")
-        binding.layoutBeltTypeA.editTextPriceOfBeltType.setText("")
-        binding.layoutBeltTypeB.editTextPriceOfBeltType.setText("")
-        binding.layoutBeltTypeC.editTextPriceOfBeltType.setText("")
+        if (beltOrder == null) {
+            binding.layoutBeltTypeA.buttonAddNewItemSize.performClick()
+            binding.layoutBeltTypeB.buttonAddNewItemSize.performClick()
+            binding.layoutBeltTypeC.buttonAddNewItemSize.performClick()
+        } else {
+            binding.layoutBeltTypeA.editTextPriceOfBeltType.setText(beltOrder?.priceOfBeltTypeA.toString())
+            binding.layoutBeltTypeB.editTextPriceOfBeltType.setText(beltOrder?.priceOfBeltTypeB.toString())
+            binding.layoutBeltTypeC.editTextPriceOfBeltType.setText(beltOrder?.priceOfBeltTypeC.toString())
+
+            val beltItemsOfTypeA = beltOrder?.beltItems?.filter {
+                it.beltType == A
+            }?.sortedBy { it.size }.orEmpty()
+            adapterBeltTypeA.addNewBeltItems(beltItemsOfTypeA)
+
+            val beltItemsOfTypeB = beltOrder?.beltItems?.filter {
+                it.beltType == B
+            }?.sortedBy { it.size }.orEmpty()
+            adapterBeltTypeB.addNewBeltItems(beltItemsOfTypeB)
+
+            val beltItemsOfTypeC = beltOrder?.beltItems?.filter {
+                it.beltType == C
+            }?.sortedBy { it.size }.orEmpty()
+            adapterBeltTypeC.addNewBeltItems(beltItemsOfTypeC)
+        }
     }
 
     private fun getLinearLayoutManager() = LinearLayoutManager(requireContext(), VERTICAL, false)
@@ -172,7 +205,7 @@ class CreateNewOrderFragment : Fragment() {
     private fun handleAdapterAItemUpdate() {
         val totalInchesForBeltTypeA = adapterBeltTypeA.allBeltItems.sumOf { it.totalInches }
         totalBeltsOfTypeA = adapterBeltTypeA.allBeltItems.sumOf { it.quantity.orZero() }
-        val pricePerInchForBeltTypeA =
+        pricePerInchForBeltTypeA =
             binding.layoutBeltTypeA.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsA = (totalInchesForBeltTypeA * pricePerInchForBeltTypeA).toMaxTwoDecimalPlaces()
         val totalOfTypeA = getString(
@@ -192,7 +225,7 @@ class CreateNewOrderFragment : Fragment() {
     private fun handleAdapterBItemUpdate() {
         val totalInchesForBeltTypeB = adapterBeltTypeB.allBeltItems.sumOf { it.totalInches }
         totalBeltsOfTypeB = adapterBeltTypeB.allBeltItems.sumOf { it.quantity.orZero() }
-        val pricePerInchForBeltTypeB =
+        pricePerInchForBeltTypeB =
             binding.layoutBeltTypeB.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsB = (totalInchesForBeltTypeB * pricePerInchForBeltTypeB).toMaxTwoDecimalPlaces()
         val totalOfTypeB = getString(
@@ -212,7 +245,7 @@ class CreateNewOrderFragment : Fragment() {
     private fun handleAdapterCItemUpdate() {
         val totalInchesForBeltTypeC = adapterBeltTypeC.allBeltItems.sumOf { it.totalInches }
         totalBeltsOfTypeC = adapterBeltTypeC.allBeltItems.sumOf { it.quantity.orZero() }
-        val pricePerInchForBeltTypeC =
+        pricePerInchForBeltTypeC =
             binding.layoutBeltTypeC.editTextPriceOfBeltType.text?.toString()?.toFloatOrNull().orZero()
         totalPriceForBeltsC = (totalInchesForBeltTypeC * pricePerInchForBeltTypeC).toMaxTwoDecimalPlaces()
         val totalOfTypeC = getString(
@@ -255,13 +288,13 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.layoutBeltTypeA.buttonAddNewItemSize.setOnClickListener {
-            adapterBeltTypeA.addNewItems(NUMBER_OF_BLANK_ITEMS)
+            adapterBeltTypeA.addNewEmptyItems(NUMBER_OF_BLANK_ITEMS)
         }
         binding.layoutBeltTypeB.buttonAddNewItemSize.setOnClickListener {
-            adapterBeltTypeB.addNewItems(NUMBER_OF_BLANK_ITEMS)
+            adapterBeltTypeB.addNewEmptyItems(NUMBER_OF_BLANK_ITEMS)
         }
         binding.layoutBeltTypeC.buttonAddNewItemSize.setOnClickListener {
-            adapterBeltTypeC.addNewItems(NUMBER_OF_BLANK_ITEMS)
+            adapterBeltTypeC.addNewEmptyItems(NUMBER_OF_BLANK_ITEMS)
         }
 
         binding.buttonSave.setOnClickListener {
@@ -302,6 +335,9 @@ class CreateNewOrderFragment : Fragment() {
         val beltOrder = BeltOrder(
             orderId = if (orderId == -1L) 0 else orderId,
             customerName = customerName,
+            priceOfBeltTypeA = pricePerInchForBeltTypeA,
+            priceOfBeltTypeB = pricePerInchForBeltTypeB,
+            priceOfBeltTypeC = pricePerInchForBeltTypeC,
             totalBeltsOfTypeA = totalBeltsOfTypeA,
             totalBeltsOfTypeB = totalBeltsOfTypeB,
             totalBeltsOfTypeC = totalBeltsOfTypeC,

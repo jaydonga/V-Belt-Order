@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.nitintraders.order.R
+import com.nitintraders.order.data.BeltOrder
 import com.nitintraders.order.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,8 +31,14 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-    fun navigateToCreateNewOrder() {
-        navController.navigate(R.id.action_homeScreen_to_createNewOrder)
+    fun navigateToCreateNewOrder(beltOrder: BeltOrder? = null) {
+        if (navController.currentDestination?.id == R.id.homeScreen) {
+            navController.navigate(R.id.action_homeScreen_to_createNewOrder)
+        } else if (navController.currentDestination?.id == R.id.viewOrders) {
+            val args = Bundle()
+            args.putParcelable(BeltOrder::class.simpleName, beltOrder)
+            navController.navigate(R.id.action_viewOrders_to_createNewOrder, args)
+        }
     }
 
     fun navigateToViewOrders() {
