@@ -14,7 +14,7 @@
     <string name="price_of_1_inch">1 ઇંચ નો ભાવ (₹)</string>
     <string name="customer_name">પાર્ટી નું નામ</string>
     <string name="total_belts"><![CDATA[કુલ પટ્ટા: <b>%d</b>]]></string>
-    <string name="total_amount">રકમ: %.2f ₹</string>
+    <string name="total_amount">કુલ રકમ: %.2f ₹</string>
     <string name="total_belts_and_grand_total">કુલ પટ્ટા: %d\nકુલ રકમ: %.2f ₹</string>
     <string name="error_enter_customer_name">પાર્ટી નું નામ નાખો.</string>
     <string name="error_enter_price_per_inch_a"><b>A</b> ના પટ્ટા નો 1 ઇંચ નો ભાવ લખો.</string>
@@ -25,6 +25,4 @@
     <string name="belts_of_size_b"><![CDATA[B ની સાઈઝ ના પટ્ટા: <b>%d</b>]]></string>
     <string name="belts_of_size_c"><![CDATA[C ની સાઈઝ ના પટ્ટા: <b>%d</b>]]></string>
     <string name="delete_the_order_from_x">%s નો ઓર્ડર કાઢી નાખવો છે?</string>
-    <string name="ok">હા</string>
-    <string name="cancel">ના</string>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">V-Belt Order</string>
+    <string name="app_name" translatable="false">V-Belt Order</string>
     <string name="rupee_symbol" translatable="false">₹</string>
 
     <string name="language_english" translatable="false">English</string>
@@ -14,9 +14,9 @@
     <string name="total_inches">= %d inches</string>
     <string name="delete">Delete</string>
     <string name="add_new_item">+ Add new item</string>
-    <string name="label_v_belt_type_a">V-Belt Type : <b>A</b></string>
-    <string name="label_v_belt_type_b">V-Belt Type : <b>B</b></string>
-    <string name="label_v_belt_type_c">V-Belt Type : <b>C</b></string>
+    <string name="label_v_belt_type_a" translatable="false">V-Belt Type : <b>A</b></string>
+    <string name="label_v_belt_type_b" translatable="false">V-Belt Type : <b>B</b></string>
+    <string name="label_v_belt_type_c" translatable="false">V-Belt Type : <b>C</b></string>
     <string name="total_of_type_a"><![CDATA[Total belts of type A: %d,<br/>Total inches of A belts: %d,<br/>Total price for <b>A: %.2f ₹</b>]]></string>
     <string name="total_of_type_b"><![CDATA[Total belts of type B: %d,<br/>Total inches of B belts: %d,<br/>Total price for <b>B: %.2f ₹</b>]]></string>
     <string name="total_of_type_c"><![CDATA[Total belts of type C: %d,<br/>Total inches of C belts: %d,<br/>Total price for <b>C: %.2f ₹</b>]]></string>
@@ -34,9 +34,9 @@
     <string name="belts_of_size_b"><![CDATA[Belts of size <b>B: %d</b>]]></string>
     <string name="belts_of_size_c"><![CDATA[Belts of size <b>C: %d</b>]]></string>
     <string name="delete_the_order_from_x">Delete the order from %s?</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="cancel" translatable="false">Cancel</string>
 
-    <string name="nitin_traders">Nitin Traders</string>
-    <string name="save">SAVE</string>
+    <string name="nitin_traders" translatable="false">Nitin Traders</string>
+    <string name="save" translatable="false">SAVE</string>
 </resources>

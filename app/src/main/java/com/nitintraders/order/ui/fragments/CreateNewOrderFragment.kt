@@ -1,5 +1,6 @@
 package com.nitintraders.order.ui.fragments
 
+import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -301,15 +302,7 @@ class CreateNewOrderFragment : Fragment() {
         }
 
         binding.buttonSave.setOnClickListener {
-            val allBeltItems = listOf(
-                adapterBeltTypeA.allBeltItems.filter { it.totalInches > 0 },
-                adapterBeltTypeB.allBeltItems.filter { it.totalInches > 0 },
-                adapterBeltTypeC.allBeltItems.filter { it.totalInches > 0 },
-            ).flatten()
-            if (customerName.isNotEmpty() && allBeltItems.isNotEmpty()) {
-                saveOrder(allBeltItems)
-                orderSavedTime = System.currentTimeMillis()
-            }
+            handleSaveButtonClicked()
         }
 
         lifecycleScope.launch {
@@ -321,6 +314,32 @@ class CreateNewOrderFragment : Fragment() {
                     orderId = it
                     (activity as MainActivity).navigateToViewOrders()
                 }
+        }
+    }
+
+    private fun handleSaveButtonClicked() {
+        if (customerName.isEmpty()) {
+            binding.editTextCustomerName.requestFocus()
+            showAlertDialog(getString(R.string.error_enter_customer_name))
+        } else if (adapterBeltTypeA.allBeltItems.isNotEmpty() && pricePerInchForBeltTypeA <= 0) {
+            binding.layoutBeltTypeA.editTextPriceOfBeltType.requestFocus()
+            showAlertDialog(getString(R.string.error_enter_price_per_inch_a))
+        } else if (adapterBeltTypeB.allBeltItems.isNotEmpty() && pricePerInchForBeltTypeB <= 0) {
+            binding.layoutBeltTypeB.editTextPriceOfBeltType.requestFocus()
+            showAlertDialog(getString(R.string.error_enter_price_per_inch_b))
+        } else if (adapterBeltTypeC.allBeltItems.isNotEmpty() && pricePerInchForBeltTypeC <= 0) {
+            binding.layoutBeltTypeC.editTextPriceOfBeltType.requestFocus()
+            showAlertDialog(getString(R.string.error_enter_price_per_inch_c))
+        } else {
+            Log.e("CreateNewOrderFragment", "save order")
+            val allBeltItems = listOf(
+                adapterBeltTypeA.allBeltItems.filter { it.totalInches > 0 },
+                adapterBeltTypeB.allBeltItems.filter { it.totalInches > 0 },
+                adapterBeltTypeC.allBeltItems.filter { it.totalInches > 0 },
+            ).flatten()
+
+            saveOrder(allBeltItems)
+            orderSavedTime = System.currentTimeMillis()
         }
     }
 
@@ -349,6 +368,18 @@ class CreateNewOrderFragment : Fragment() {
             beltItems = allBeltItems,
         )
         viewModel.addOrder(beltOrder)
+    }
+
+    private fun showAlertDialog(message: String) {
+        val builder = AlertDialog.Builder(context)
+        builder
+            .setTitle(message)
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private companion object {
