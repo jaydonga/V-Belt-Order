@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_new_order">નવો ઓર્ડર બનાવો</string>
+    <string name="view_orders">ઓર્ડર જોવો</string>
+
+    <string name="size_in_inch">Size (ઇંચ)</string>
+    <string name="quantity">નંગ</string>
+    <string name="total_inches">= %d ઇંચ</string>
+    <string name="delete">કાઢી નાખો</string>
+    <string name="add_new_item">+ નવી આઈટમ ઉમેરો</string>
+    <string name="total_of_type_a"><![CDATA[A ના કુલ પટ્ટા: %d,<br/>A ના કુલ ઇંચ: %d,<br/>A ના પટ્ટા ની રકમ: <b>%.2f ₹</b>]]></string>
+    <string name="total_of_type_b"><![CDATA[B ના કુલ પટ્ટા: %d,<br/>B ના કુલ ઇંચ: %d,<br/>B ના પટ્ટા ની રકમ: <b>%.2f ₹</b>]]></string>
+    <string name="total_of_type_c"><![CDATA[C ના કુલ પટ્ટા: %d,<br/>C ના કુલ ઇંચ: %d,<br/>C ના પટ્ટા ની રકમ: <b>%.2f ₹</b>]]></string>
+    <string name="price_of_1_inch">1 ઇંચ નો ભાવ (₹)</string>
+    <string name="customer_name">પાર્ટી નું નામ</string>
+    <string name="total_belts"><![CDATA[કુલ પટ્ટા: <b>%d</b>]]></string>
+    <string name="total_amount">રકમ: %.2f ₹</string>
+    <string name="total_belts_and_grand_total">કુલ પટ્ટા: %d\nકુલ રકમ: %.2f ₹</string>
+    <string name="error_enter_customer_name">પાર્ટી નું નામ નાખો.</string>
+    <string name="error_enter_price_per_inch_a"><b>A</b> ના પટ્ટા નો 1 ઇંચ નો ભાવ લખો.</string>
+    <string name="error_enter_price_per_inch_b"><b>B</b> ના પટ્ટા નો 1 ઇંચ નો ભાવ લખો.</string>
+    <string name="error_enter_price_per_inch_c"><b>C</b> ના પટ્ટા નો 1 ઇંચ નો ભાવ લખો.</string>
+    <string name="order_date">ઓર્ડર ની તારીખ: %s</string>
+    <string name="belts_of_size_a"><![CDATA[A ની સાઈઝ ના પટ્ટા: <b>%d</b>]]></string>
+    <string name="belts_of_size_b"><![CDATA[B ની સાઈઝ ના પટ્ટા: <b>%d</b>]]></string>
+    <string name="belts_of_size_c"><![CDATA[C ની સાઈઝ ના પટ્ટા: <b>%d</b>]]></string>
+    <string name="delete_the_order_from_x">%s નો ઓર્ડર કાઢી નાખવો છે?</string>
+    <string name="ok">હા</string>
+    <string name="cancel">ના</string>
+</resources>

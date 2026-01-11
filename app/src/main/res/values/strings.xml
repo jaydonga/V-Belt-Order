@@ -2,6 +2,9 @@
     <string name="app_name">V-Belt Order</string>
     <string name="rupee_symbol" translatable="false">₹</string>
 
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_gujarati" translatable="false">ગુજરાતી</string>
+
     <string name="create_new_order">Create New Order</string>
     <string name="view_orders">View Orders</string>
 

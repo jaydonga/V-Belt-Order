@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.jackson.module.kotlin)
+    implementation(libs.datastore.preferences)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
