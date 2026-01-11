@@ -73,6 +73,9 @@ class CreateNewOrderFragment : Fragment() {
             arguments?.getParcelable(BeltOrder::class.simpleName, BeltOrder::class.java)
         }
         Log.e("CreateNewOrderFragment", "beltOrder: $beltOrder")
+        beltOrder?.orderId?.let {
+            orderId = it
+        }
 
         adapterBeltTypeA = EachBeltItemAdapter(beltType = A)
         adapterBeltTypeB = EachBeltItemAdapter(beltType = B)

@@ -78,11 +78,11 @@ class ViewOrdersFragment : Fragment() {
         val builder = AlertDialog.Builder(context)
         builder
             .setTitle(getString(R.string.delete_the_order_from_x, beltOrder.customerName))
-            .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                 viewModel.deleteOrder(beltOrder)
                 dialog.dismiss()
             }
-            .setNegativeButton(getString(R.string.cancel)) { dialog, which ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
 
