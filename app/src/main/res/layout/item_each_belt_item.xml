@@ -17,6 +17,7 @@
         android:imeOptions="actionNext"
         android:inputType="number"
         android:nextFocusForward="@id/editTextQuantity"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginStart="8dp" />
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/size_in_inch"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/editTextSizeInInch"
         app:layout_constraintStart_toStartOf="@id/editTextSizeInInch"
         app:layout_constraintTop_toBottomOf="@id/editTextSizeInInch" />
@@ -37,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/multiplication_symbol"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/textViewInch"
         app:layout_constraintStart_toEndOf="@id/editTextSizeInInch"
         app:layout_constraintTop_toTopOf="@id/editTextSizeInInch" />
@@ -51,6 +54,7 @@
         android:gravity="center"
         android:imeOptions="actionDone"
         android:inputType="number"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/editTextSizeInInch"
         app:layout_constraintStart_toEndOf="@id/textViewMultiply"
         app:layout_constraintTop_toTopOf="@id/editTextSizeInInch" />
@@ -61,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/quantity"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/editTextQuantity"
         app:layout_constraintStart_toStartOf="@id/editTextQuantity"
         app:layout_constraintTop_toBottomOf="@id/editTextQuantity" />
@@ -71,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/total_inches"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/textViewQuantity"
         app:layout_constraintStart_toEndOf="@id/editTextQuantity"
         app:layout_constraintTop_toTopOf="@id/editTextQuantity"
