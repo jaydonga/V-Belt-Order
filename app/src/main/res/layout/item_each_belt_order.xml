@@ -101,6 +101,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewBeltsOfSizeC"
         tools:text="Total amount: 6500 ₹" />
 
+    <Button
+        android:id="@+id/buttonSendOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/send_order"
+        app:layout_constraintEnd_toEndOf="@id/textViewTotalAmount"
+        app:layout_constraintStart_toStartOf="@id/textViewTotalAmount"
+        app:layout_constraintTop_toBottomOf="@id/textViewTotalAmount" />
+
     <View
         android:id="@+id/dividerEachOrder"
         android:layout_width="0dp"
@@ -109,6 +119,6 @@
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewTotalAmount" />
+        app:layout_constraintTop_toBottomOf="@id/buttonSendOrder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

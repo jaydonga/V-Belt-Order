@@ -25,4 +25,5 @@
     <string name="belts_of_size_b"><![CDATA[B ની સાઈઝ ના પટ્ટા: <b>%d</b>]]></string>
     <string name="belts_of_size_c"><![CDATA[C ની સાઈઝ ના પટ્ટા: <b>%d</b>]]></string>
     <string name="delete_the_order_from_x">%s નો ઓર્ડર કાઢી નાખવો છે?</string>
+    <string name="send_order">ઓર્ડર મોકલો</string>
 </resources>

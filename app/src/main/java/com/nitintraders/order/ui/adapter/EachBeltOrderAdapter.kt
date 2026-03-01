@@ -99,6 +99,13 @@ class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrder
                 )
             }
 
+            binding.buttonSendOrder.setOnClickListener {
+                itemClickListener?.invoke(
+                    ClickEventType.ItemShareEvent,
+                    beltOrders[bindingAdapterPosition],
+                )
+            }
+
             binding.root.setOnClickListener {
                 itemClickListener?.invoke(
                     ClickEventType.ItemClickEvent,
@@ -111,5 +118,6 @@ class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrder
     enum class ClickEventType {
         ItemRemoveEvent,
         ItemClickEvent,
+        ItemShareEvent,
     }
 }

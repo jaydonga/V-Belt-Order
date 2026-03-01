@@ -36,6 +36,7 @@
     <string name="delete_the_order_from_x">Delete the order from %s?</string>
     <string name="ok" translatable="false">OK</string>
     <string name="cancel" translatable="false">Cancel</string>
+    <string name="send_order">Send order</string>
 
     <string name="nitin_traders" translatable="false">Nitin Traders</string>
     <string name="save" translatable="false">SAVE</string>
