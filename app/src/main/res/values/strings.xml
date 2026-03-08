@@ -9,8 +9,10 @@
     <string name="view_orders">View Orders</string>
 
     <string name="size_in_inch">Size (inch)</string>
+    <string name="size_in_inch_english" translatable="false">Size (inch)</string>
     <string name="multiplication_symbol" translatable="false">X</string>
     <string name="quantity">Quantity</string>
+    <string name="quantity_english" translatable="false">Quantity</string>
     <string name="total_inches">= %d inches</string>
     <string name="delete">Delete</string>
     <string name="add_new_item">+ Add new item</string>
@@ -25,6 +27,7 @@
     <string name="total_belts"><![CDATA[Total belts: <b>%d</b>]]></string>
     <string name="total_amount">Total amount: %.2f ₹</string>
     <string name="total_belts_and_grand_total">Total belts: %d\nGrand total: %.2f ₹</string>
+    <string name="total_belts_and_grand_total_english" translatable="false">Total belts: %d\nGrand total: %.2f ₹</string>
     <string name="error_enter_customer_name">Enter customer name.</string>
     <string name="error_enter_price_per_inch_a">Enter price per inch for belt type <b>A</b>.</string>
     <string name="error_enter_price_per_inch_b">Enter price per inch for belt type <b>B</b>.</string>
@@ -37,6 +40,7 @@
     <string name="ok" translatable="false">OK</string>
     <string name="cancel" translatable="false">Cancel</string>
     <string name="send_order">Send order</string>
+    <string name="belts_amount_english" translatable="false">Belts: %d, Amount: %.2f ₹</string>
 
     <string name="nitin_traders" translatable="false">Nitin Traders</string>
     <string name="save" translatable="false">SAVE</string>

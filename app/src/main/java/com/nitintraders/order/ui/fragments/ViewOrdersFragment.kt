@@ -5,12 +5,11 @@ import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.pdf.PdfDocument
 import android.os.Bundle
+import android.print.PrintAttributes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,11 +23,16 @@ import com.nitintraders.order.databinding.FragmentViewOrdersBinding
 import com.nitintraders.order.ui.activities.MainActivity
 import com.nitintraders.order.ui.adapter.EachBeltOrderAdapter
 import com.nitintraders.order.viewmodel.ViewOrdersViewModel
+import com.wwdablu.soumya.simplypdf.SimplyPdf
+import com.wwdablu.soumya.simplypdf.composers.properties.TableProperties
+import com.wwdablu.soumya.simplypdf.composers.properties.TextProperties
+import com.wwdablu.soumya.simplypdf.composers.properties.cell.Cell
+import com.wwdablu.soumya.simplypdf.composers.properties.cell.TextCell
+import com.wwdablu.soumya.simplypdf.document.DocumentInfo
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 @AndroidEntryPoint
 class ViewOrdersFragment : Fragment() {
@@ -65,7 +69,7 @@ class ViewOrdersFragment : Fragment() {
                 }
 
                 EachBeltOrderAdapter.ClickEventType.ItemShareEvent -> {
-                    createOrderInPdf(beltOrder)
+                    viewModel.createOrderInPdf(beltOrder)
                 }
             }
         }
@@ -74,15 +78,24 @@ class ViewOrdersFragment : Fragment() {
         binding.recyclerViewAllOrder.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launch {
-            viewModel.allBeltOrders.flowWithLifecycle(lifecycle, Lifecycle.State.CREATED).collect {
+            viewModel.allBeltOrders.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
                 beltOrdersAdapter.setBeltOrders(it)
             }
         }
 
         lifecycleScope.launch {
-            viewModel.orderDeleted.flowWithLifecycle(lifecycle, Lifecycle.State.CREATED).collect {
+            viewModel.orderDeleted.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
                 beltOrdersAdapter.adjustListAfterOrderDeletion(it)
             }
+        }
+
+        lifecycleScope.launch {
+            viewModel.pdfCreationIsComplete
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .filterNotNull()
+                .collect {
+                    sharePdfFile(it)
+                }
         }
 
         viewModel.retrieveAllBeltOrders()
@@ -104,32 +117,6 @@ class ViewOrdersFragment : Fragment() {
         dialog.show()
     }
 
-    private fun createOrderInPdf(beltOrder: BeltOrder) {
-        val pdfDocument = PdfDocument()
-        val pageInfo = PdfDocument.PageInfo.Builder(ORDER_PDF_WIDTH, ORDER_PDF_HEIGHT, 1).create()
-        val page = pdfDocument.startPage(pageInfo)
-        val canvas: Canvas = page.canvas
-
-        val paint = Paint()
-        paint.color = Color.BLACK
-        paint.textSize = 36f
-
-        canvas.drawText("ABC", 80f, 100f, paint)
-
-        pdfDocument.finishPage(page)
-
-        val file = File(requireContext().cacheDir, "${beltOrder.customerName}_order.pdf")
-        try {
-            pdfDocument.writeTo(FileOutputStream(file))
-            sharePdfFile(file)
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Toast.makeText(requireContext(), "Failed to create PDF", Toast.LENGTH_SHORT).show()
-        } finally {
-            pdfDocument.close()
-        }
-    }
-
     private fun sharePdfFile(file: File) {
         val uri = FileProvider.getUriForFile(
             requireContext(),
@@ -142,7 +129,7 @@ class ViewOrdersFragment : Fragment() {
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        startActivity(Intent.createChooser(intent, "Share Order PDF"))
+        startActivity(Intent.createChooser(intent, getString(R.string.send_order)))
     }
 
     private companion object {

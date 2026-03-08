@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nitintraders.order.R
 import com.nitintraders.order.data.BeltOrder
 import com.nitintraders.order.databinding.ItemEachBeltOrderBinding
+import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class EachBeltOrderAdapter : RecyclerView.Adapter<EachBeltOrderAdapter.BeltOrderViewHolder>() {
 
-    private val simpleDateFormat = java.text.SimpleDateFormat("dd MMMM yyyy", Locale.UK)
+    private val simpleDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.UK)
     private var beltOrders = mutableListOf<BeltOrder>()
     private var itemClickListener: ((ClickEventType, BeltOrder) -> Unit)? = null
 
