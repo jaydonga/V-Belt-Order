@@ -169,9 +169,13 @@ class CreateNewOrderFragment : Fragment() {
             binding.layoutBeltTypeB.buttonAddNewItemSize.performClick()
             binding.layoutBeltTypeC.buttonAddNewItemSize.performClick()
         } else {
-            binding.layoutBeltTypeA.editTextPriceOfBeltType.setText(beltOrder?.priceOfBeltTypeA.toString())
-            binding.layoutBeltTypeB.editTextPriceOfBeltType.setText(beltOrder?.priceOfBeltTypeB.toString())
-            binding.layoutBeltTypeC.editTextPriceOfBeltType.setText(beltOrder?.priceOfBeltTypeC.toString())
+            val priceOfBeltTypeA = beltOrder?.priceOfBeltTypeA?.takeIf { it != 0f }?.toString().orEmpty()
+            val priceOfBeltTypeB = beltOrder?.priceOfBeltTypeB?.takeIf { it != 0f }?.toString().orEmpty()
+            val priceOfBeltTypeC = beltOrder?.priceOfBeltTypeC?.takeIf { it != 0f }?.toString().orEmpty()
+
+            binding.layoutBeltTypeA.editTextPriceOfBeltType.setText(priceOfBeltTypeA)
+            binding.layoutBeltTypeB.editTextPriceOfBeltType.setText(priceOfBeltTypeB)
+            binding.layoutBeltTypeC.editTextPriceOfBeltType.setText(priceOfBeltTypeC)
 
             val beltItemsOfTypeA = beltOrder?.beltItems?.filter {
                 it.beltType == A
