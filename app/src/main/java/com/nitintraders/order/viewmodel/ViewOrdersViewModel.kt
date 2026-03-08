@@ -1,6 +1,7 @@
 package com.nitintraders.order.viewmodel
 
 import android.app.Application
+import android.graphics.Typeface
 import android.print.PrintAttributes
 import android.text.Layout
 import androidx.lifecycle.ViewModel
@@ -65,7 +66,7 @@ class ViewOrdersViewModel @Inject constructor(
         viewModelScope.launch {
             val file = File(
                 application.applicationContext.cacheDir,
-                "${beltOrder.customerName}_${beltOrder.orderDateTime}" + ".pdf",
+                "${beltOrder.customerName}_${simpleDateFormat.format(beltOrder.orderDateTime)}" + ".pdf",
             )
 
             val pageMargin = Margin(
@@ -81,84 +82,127 @@ class ViewOrdersViewModel @Inject constructor(
                 .build()
 
             simplyPdfDocument.insertEmptyLines(2)
-            simplyPdfDocument.text.write(
-                application.getString(R.string.nitin_traders),
-                TextProperties().apply {
-                    textSize = LARGE_TEXT
-                    alignment = Layout.Alignment.ALIGN_CENTER
-                },
-            )
-            simplyPdfDocument.insertEmptyLines(1)
-            simplyPdfDocument.text.write(
-                "${beltOrder.customerName}, ${simpleDateFormat.format(beltOrder.orderDateTime)}",
-                TextProperties().apply {
-                    textSize = MEDIUM_TEXT
-                    alignment = Layout.Alignment.ALIGN_CENTER
-                },
-            )
-            simplyPdfDocument.insertEmptyLines(1)
 
-            val beltOrdersA = beltOrder.beltItems.filter {
-                it.beltType == A
-            }.sortedBy { it.size }
-            val totalBeltsOfTypeA = beltOrdersA.sumOf { it.quantity.orZero() }
-            val totalAmountForTypeABelts = beltOrdersA.sumOf { it.totalInches } * beltOrder.priceOfBeltTypeA
+            writeDocumentHeader(simplyPdfDocument)
 
-            writeBeltItems(
-                simplyPdfDocument,
-                application.getText(R.string.label_v_belt_type_a).toString(),
-                beltOrdersA,
-                totalBeltsOfTypeA,
-                totalAmountForTypeABelts,
-            )
-            simplyPdfDocument.insertEmptyLines(2)
+            writeCustomerName(simplyPdfDocument, beltOrder)
 
-            val beltOrdersB = beltOrder.beltItems.filter {
-                it.beltType == B
-            }.sortedBy { it.size }
-            val totalBeltsOfTypeB = beltOrdersB.sumOf { it.quantity.orZero() }
-            val totalAmountForTypeBBelts = beltOrdersB.sumOf { it.totalInches } * beltOrder.priceOfBeltTypeB
+            writeBeltsOfTypeA(beltOrder, simplyPdfDocument)
 
-            writeBeltItems(
-                simplyPdfDocument,
-                application.getText(R.string.label_v_belt_type_b).toString(),
-                beltOrdersB,
-                totalBeltsOfTypeB,
-                totalAmountForTypeBBelts,
-            )
-            simplyPdfDocument.insertEmptyLines(2)
+            writeBeltsOfTypeB(beltOrder, simplyPdfDocument)
 
-            val beltOrdersC = beltOrder.beltItems.filter {
-                it.beltType == C
-            }.sortedBy { it.size }
-            val totalBeltsOfTypeC = beltOrdersC.sumOf { it.quantity.orZero() }
-            val totalAmountForTypeCBelts = beltOrdersC.sumOf { it.totalInches } * beltOrder.priceOfBeltTypeC
+            writeBeltsOfTypeC(beltOrder, simplyPdfDocument)
 
-            writeBeltItems(
-                simplyPdfDocument,
-                application.getText(R.string.label_v_belt_type_c).toString(),
-                beltOrdersC,
-                totalBeltsOfTypeC,
-                totalAmountForTypeCBelts,
-            )
-
-            simplyPdfDocument.text.write(
-                application.getString(
-                    R.string.total_belts_and_grand_total_english,
-                    beltOrder.totalBelts,
-                    beltOrder.grandTotal
-                ),
-                TextProperties().apply {
-                    textSize = MEDIUM_TEXT
-                    alignment = Layout.Alignment.ALIGN_CENTER
-                },
-            )
-            simplyPdfDocument.insertEmptyLines(1)
+            writeDocumentFooter(simplyPdfDocument, beltOrder)
 
             simplyPdfDocument.finish()
             _pdfCreationIsComplete.value = file
             _pdfCreationIsComplete.value = null
         }
+    }
+
+    private fun writeDocumentHeader(simplyPdfDocument: SimplyPdfDocument) {
+        simplyPdfDocument.text.write(
+            application.getString(R.string.nitin_traders),
+            TextProperties().apply {
+                textSize = LARGE_TEXT
+                alignment = Layout.Alignment.ALIGN_CENTER
+                typeface = Typeface.DEFAULT_BOLD
+            },
+        )
+        simplyPdfDocument.insertEmptyLines(1)
+    }
+
+    private fun writeCustomerName(
+        simplyPdfDocument: SimplyPdfDocument,
+        beltOrder: BeltOrder
+    ) {
+        simplyPdfDocument.text.write(
+            "${beltOrder.customerName}, ${simpleDateFormat.format(beltOrder.orderDateTime)}",
+            TextProperties().apply {
+                textSize = MEDIUM_TEXT
+                alignment = Layout.Alignment.ALIGN_CENTER
+                typeface = Typeface.DEFAULT_BOLD
+            },
+        )
+        simplyPdfDocument.insertEmptyLines(2)
+    }
+
+    private fun writeBeltsOfTypeA(
+        beltOrder: BeltOrder,
+        simplyPdfDocument: SimplyPdfDocument
+    ) {
+        val beltOrdersA = beltOrder.beltItems.filter {
+            it.beltType == A
+        }.sortedBy { it.size }
+        val totalBeltsOfTypeA = beltOrdersA.sumOf { it.quantity.orZero() }
+        val totalAmountForTypeABelts = beltOrdersA.sumOf { it.totalInches } * beltOrder.priceOfBeltTypeA
+
+        writeBeltItems(
+            simplyPdfDocument,
+            application.getText(R.string.label_v_belt_type_a).toString(),
+            beltOrdersA,
+            totalBeltsOfTypeA,
+            totalAmountForTypeABelts,
+        )
+        simplyPdfDocument.insertEmptyLines(2)
+    }
+
+    private fun writeBeltsOfTypeB(
+        beltOrder: BeltOrder,
+        simplyPdfDocument: SimplyPdfDocument
+    ) {
+        val beltOrdersB = beltOrder.beltItems.filter {
+            it.beltType == B
+        }.sortedBy { it.size }
+        val totalBeltsOfTypeB = beltOrdersB.sumOf { it.quantity.orZero() }
+        val totalAmountForTypeBBelts = beltOrdersB.sumOf { it.totalInches } * beltOrder.priceOfBeltTypeB
+
+        writeBeltItems(
+            simplyPdfDocument,
+            application.getText(R.string.label_v_belt_type_b).toString(),
+            beltOrdersB,
+            totalBeltsOfTypeB,
+            totalAmountForTypeBBelts,
+        )
+        simplyPdfDocument.insertEmptyLines(2)
+    }
+
+    private fun writeBeltsOfTypeC(
+        beltOrder: BeltOrder,
+        simplyPdfDocument: SimplyPdfDocument
+    ) {
+        val beltOrdersC = beltOrder.beltItems.filter {
+            it.beltType == C
+        }.sortedBy { it.size }
+        val totalBeltsOfTypeC = beltOrdersC.sumOf { it.quantity.orZero() }
+        val totalAmountForTypeCBelts = beltOrdersC.sumOf { it.totalInches } * beltOrder.priceOfBeltTypeC
+
+        writeBeltItems(
+            simplyPdfDocument,
+            application.getText(R.string.label_v_belt_type_c).toString(),
+            beltOrdersC,
+            totalBeltsOfTypeC,
+            totalAmountForTypeCBelts,
+        )
+    }
+
+    private fun writeDocumentFooter(
+        simplyPdfDocument: SimplyPdfDocument,
+        beltOrder: BeltOrder
+    ) {
+        simplyPdfDocument.text.write(
+            application.getString(
+                R.string.total_belts_and_grand_total_english,
+                beltOrder.totalBelts,
+                beltOrder.grandTotal
+            ),
+            TextProperties().apply {
+                textSize = LARGE_TEXT
+                alignment = Layout.Alignment.ALIGN_CENTER
+                typeface = Typeface.DEFAULT_BOLD
+            },
+        )
     }
 
     private fun writeBeltItems(
@@ -170,6 +214,12 @@ class ViewOrdersViewModel @Inject constructor(
     ) {
         if (beltItems.isEmpty()) {
             return
+        }
+
+        val boldTextProperties = TextProperties().apply {
+            textSize = SMALL_TEXT
+            alignment = Layout.Alignment.ALIGN_CENTER
+            typeface = Typeface.DEFAULT_BOLD
         }
 
         val defaultTextProperties = TextProperties().apply {
@@ -186,11 +236,7 @@ class ViewOrdersViewModel @Inject constructor(
         val fullCellWidth = simplyPdfDocument.usablePageWidth - 2 * DEFAULT_PAGE_MARGIN.toInt()
         rows.add(
             listOf(
-                TextCell(
-                    cellHeader,
-                    defaultTextProperties,
-                    fullCellWidth
-                )
+                TextCell(cellHeader, boldTextProperties, fullCellWidth)
             )
         )
         rows.add(
@@ -200,7 +246,11 @@ class ViewOrdersViewModel @Inject constructor(
                     defaultTextProperties,
                     fullCellWidth / 2
                 ),
-                TextCell(application.getString(R.string.quantity), defaultTextProperties, fullCellWidth / 2)
+                TextCell(
+                    application.getString(R.string.quantity_english),
+                    defaultTextProperties,
+                    fullCellWidth / 2
+                )
             )
         )
         beltItems.forEach {
