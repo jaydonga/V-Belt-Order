@@ -8,7 +8,6 @@ android {
     defaultConfig {
         compileSdk 34
         minSdkVersion 23
-        targetSdkVersion 34
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,6 +25,12 @@ android {
         jvmTarget = '11'
     }
     namespace 'com.wwdablu.soumya.simplypdf'
+    lint {
+        targetSdk 34
+    }
+    testOptions {
+        targetSdk 34
+    }
 }
 
 dependencies {
